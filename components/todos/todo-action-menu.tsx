@@ -14,7 +14,7 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { Text } from "@radix-ui/themes";
 import { ToggleStatus } from "@/lib/actions";
-import ItemInfo from "../shared/item-info";
+import ItemInfo from "../shared/items-info";
 import { Todo } from "@/lib/types";
 
 const actions = [
