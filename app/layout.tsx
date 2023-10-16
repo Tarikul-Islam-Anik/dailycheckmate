@@ -1,13 +1,18 @@
+"use client";
+
 import "./globals.css";
-import type { Metadata } from "next";
+import "./theme-config.css";
+import "@radix-ui/themes/styles.css";
+import { Container, Theme } from "@radix-ui/themes";
 import { Nunito } from "next/font/google";
+import { Provider } from "jotai";
+import { Toaster } from "sonner";
 
-const nunito = Nunito({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Daily Checkmate",
-  description: "Simple productivity app for for quick and easy daily planning",
-};
+const nunito = Nunito({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-nunito",
+});
 
 export default function RootLayout({
   children,
@@ -16,7 +21,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={nunito.className}>{children}</body>
+      <head>
+        <meta name="title" content="Daily Checkmate" />
+        <meta
+          name="description"
+          content="Simple productivity app for for quick and easy daily planning"
+        />
+      </head>
+      <body className={nunito.variable}>
+        <Provider>
+          <Theme appearance="light" accentColor="blue" radius="small">
+            <Container size="4" p="9">
+              {children}
+            </Container>
+            <Toaster />
+          </Theme>
+        </Provider>
+      </body>
     </html>
   );
 }
