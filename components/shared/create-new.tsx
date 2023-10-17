@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Tooltip from "./tooltip";
+import TooltipParent from "./tooltip-parent";
 import TodoForm from "../todos/todo-form";
 import ReminderForm from "../reminders/reminder-form";
 
@@ -27,13 +27,13 @@ const CreateNew = ({
   const [open, setOpen] = useState(false);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Tooltip content="Create new">
+      <TooltipParent content="Create new">
         <DialogTrigger
           className={buttonVariants({ variant: "outline", size: "icon" })}
         >
           <PlusIcon className="w-5 h-5" />
         </DialogTrigger>
-      </Tooltip>
+      </TooltipParent>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
