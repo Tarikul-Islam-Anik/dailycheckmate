@@ -62,7 +62,6 @@ const ReminderForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
       .join("\n");
     delete data.links;
     const reminderData = { ...data, links };
-    toast.message(JSON.stringify(reminderData, null, 2));
     setOpen(false);
     toast.promise(
       Create("reminders", reminderData).then((res) => {
