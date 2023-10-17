@@ -1,5 +1,5 @@
 import {
-  AlertDialog as AD,
+  AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
@@ -10,7 +10,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-const AlertDialog = ({
+const AlertDialogParent = ({
   action,
   title,
   description,
@@ -22,7 +22,7 @@ const AlertDialog = ({
   children: React.ReactNode;
 }) => {
   return (
-    <AD>
+    <AlertDialog>
       <AlertDialogTrigger>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -34,8 +34,8 @@ const AlertDialog = ({
           <AlertDialogAction onClick={action}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
-    </AD>
+    </AlertDialog>
   );
 };
 
-export default AlertDialog;
+export default AlertDialogParent;

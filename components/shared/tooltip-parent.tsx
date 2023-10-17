@@ -1,11 +1,11 @@
 import {
-  Tooltip as TT,
+  Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const Tooltip = ({
+const TooltipParent = ({
   children,
   content,
   delayDuration = 300,
@@ -16,12 +16,12 @@ const Tooltip = ({
 }) => {
   return (
     <TooltipProvider delayDuration={delayDuration}>
-      <TT>
+      <Tooltip>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent>{content}</TooltipContent>
-      </TT>
+      </Tooltip>
     </TooltipProvider>
   );
 };
 
-export default Tooltip;
+export default TooltipParent;
