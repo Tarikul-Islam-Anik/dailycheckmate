@@ -1,3 +1,5 @@
+import { useAtom } from "jotai";
+import { todoAtom } from "@/atom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,13 +33,26 @@ const actions = [
 ];
 
 const TodoActionMenu = ({
-  data,
-  setVisible,
+  id,
 }: {
-  data: Todo;
-  setVisible: (visible: boolean) => void;
+  id: Todo["id"];
 }) => {
-  const { id, title, status } = data;
+  const [todos, setTodos] = useAtom(todoAtom);
+  const { title, status } = todos.find((todo: Todo) => todo.id === id)!;
+
+  function handleDelete(action: (typeof actions)[number]) {
+    ToggleStatus("todos", id, title, action.value as "trash" | "todo");
+    setTodos((prev) =>
+      prev.map((todo: Todo) =>
+        todo.id === id
+          ? {
+              ...todo,
+              status: action.value as "trash" | "todo",
+            }
+          : todo
+      )
+    );
+  }
 
   return (
     <Dialog>
@@ -63,15 +78,7 @@ const TodoActionMenu = ({
                 <DropdownMenuItem
                   key={action.value}
                   className="flex items-center"
-                  onClick={() => {
-                    ToggleStatus(
-                      "todos",
-                      id,
-                      title,
-                      action.value as "trash" | "todo"
-                    );
-                    setVisible(false);
-                  }}
+                  onClick={() => handleDelete(action)}
                 >
                   <action.icon className="w-5 h-5 mr-2" />
                   <Text as="span">{action.label}</Text>
@@ -81,7 +88,7 @@ const TodoActionMenu = ({
           })}
         </DropdownMenuContent>
       </DropdownMenu>
-      <ItemInfo info={data} />
+      <ItemInfo id={id} type="todos" />
     </Dialog>
   );
 };

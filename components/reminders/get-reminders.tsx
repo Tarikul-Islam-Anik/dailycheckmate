@@ -1,7 +1,4 @@
 "use client";
-
-import axios from "axios";
-import { useEffect } from "react";
 import { useAtom } from "jotai";
 import { reminderAtom } from "@/atom";
 import { Reminder } from "@/lib/types";
@@ -15,14 +12,7 @@ const GetReminders = ({
 }: {
   reminderStatus: ReminderStatus;
 }) => {
-  const [reminders, setReminders] = useAtom(reminderAtom);
-  useEffect(() => {
-    axios.get("/api/reminders").then((res) => {
-      const { data } = res;
-      setReminders(data);
-    });
-  }, []);
-
+  const [reminders] = useAtom(reminderAtom);
   const filteredReminders = reminders
     .map((reminder: Reminder) => {
       reminder.status !== "trash" &&
@@ -38,33 +28,7 @@ const GetReminders = ({
 
   return filteredReminders.length !== 0 ? (
     filteredReminders.map((reminder) => {
-      const {
-        id,
-        title,
-        description,
-        links,
-        status,
-        deadline,
-        reminderTime,
-        createdAt,
-        updatedAt,
-      } = reminder;
-      return (
-        <ReminderItem
-          key={id}
-          data={{
-            id,
-            title,
-            description: description!,
-            links: links!,
-            status: status as ReminderStatus,
-            deadline: deadline,
-            reminderTime: reminderTime,
-            createdAt: createdAt,
-            updatedAt: updatedAt,
-          }}
-        />
-      );
+      return <ReminderItem key={reminder.id} id={reminder.id} />;
     })
   ) : (
     <Message message="No reminders found." />

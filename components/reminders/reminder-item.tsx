@@ -1,11 +1,16 @@
+import { useAtom } from "jotai";
+import { reminderAtom } from "@/atom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Text } from "@radix-ui/themes";
 import { Reminder } from "@/lib/types";
 import { format } from "date-fns";
 import ReminderActions from "./reminder-actions";
 
-const RerminderItem = ({ data }: { data: Reminder }) => {
-  const { title, description, deadline, links } = data;
+const RerminderItem = ({ id }: { id: Reminder["id"] }) => {
+  const [reminders] = useAtom(reminderAtom);
+  const { title, description, deadline } = reminders.find(
+    (reminder) => reminder.id === id
+  )!;
 
   return (
     <Card className="shadow-none">
@@ -29,7 +34,7 @@ const RerminderItem = ({ data }: { data: Reminder }) => {
           {format(new Date(deadline), "eeee dd, LLL yyyy")}
         </Text>
       </CardContent>
-      <ReminderActions data={data} />
+      <ReminderActions id={id} title={title} />
     </Card>
   );
 };

@@ -5,7 +5,7 @@ import { Reminder } from "@/lib/types";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { Text } from "@radix-ui/themes";
 
-const ViewReminder = ({ data }: { data: Reminder }) => {
+const ViewReminder = ({ id }: { id: Reminder["id"] }) => {
   return (
     <Dialog>
       <DialogTrigger
@@ -18,7 +18,7 @@ const ViewReminder = ({ data }: { data: Reminder }) => {
         <EyeIcon className="w-5 h-5 mr-2" />
         <Text as="span">View</Text>
       </DialogTrigger>
-      <ItemInfo info={data} />
+      <ItemInfo id={id} type="reminders" />
     </Dialog>
   );
 };
