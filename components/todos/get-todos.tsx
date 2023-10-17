@@ -1,7 +1,5 @@
 "use client";
 
-import axios from "axios";
-import { useEffect } from "react";
 import { useAtom } from "jotai";
 import { todoAtom } from "@/atom";
 import { Todo } from "@/lib/types";
@@ -11,14 +9,7 @@ import Message from "../shared/message";
 type TodoStatus = "todo" | "completed" | "trash";
 
 const GetTodos = ({ todoStatus }: { todoStatus: TodoStatus }) => {
-  const [todos, setTodos] = useAtom(todoAtom);
-
-  useEffect(() => {
-    axios.get("/api/todos").then((res) => {
-      const { data } = res;
-      setTodos(data);
-    });
-  }, []);
+  const [todos] = useAtom(todoAtom);
 
   const filteredTodos = todos
     .filter((todo: Todo) => todo.status === todoStatus)
@@ -28,21 +19,8 @@ const GetTodos = ({ todoStatus }: { todoStatus: TodoStatus }) => {
     );
 
   return filteredTodos.length !== 0 ? (
-    filteredTodos.map((todo) => {
-      const { id, title, description, status, createdAt, updatedAt } = todo;
-      return (
-        <TodoItem
-          key={id}
-          data={{
-            id,
-            title,
-            description: description!,
-            status: status as TodoStatus,
-            createdAt: createdAt,
-            updatedAt: updatedAt,
-          }}
-        />
-      );
+    filteredTodos.map((todo: Todo) => {
+      return <TodoItem key={todo.id} id={todo.id} />;
     })
   ) : (
     <Message message="No todos found." />

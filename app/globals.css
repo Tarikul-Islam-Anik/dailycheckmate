@@ -59,4 +59,20 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  ::-webkit-scrollbar {
+    @apply w-1.5 h-1;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background my-2;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  ::selection {
+    @apply bg-primary-foreground;
+  }
 }

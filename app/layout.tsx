@@ -1,13 +1,20 @@
+"use client";
+
 import "./globals.css";
-import type { Metadata } from "next";
+import "./theme-config.css";
+import "@radix-ui/themes/styles.css";
+import { Container, Theme } from "@radix-ui/themes";
 import { Nunito } from "next/font/google";
+import { Provider } from "jotai";
+import { Toaster } from "sonner";
+import { ThemeProvider } from "@/components/shared/theme-provider";
+import { ModeToggle } from "@/components/shared/mode-toggle";
 
-const nunito = Nunito({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Daily Checkmate",
-  description: "Simple productivity app for for quick and easy daily planning",
-};
+const nunito = Nunito({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-nunito",
+});
 
 export default function RootLayout({
   children,
@@ -15,8 +22,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={nunito.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="title" content="Daily Checkmate" />
+        <meta
+          name="description"
+          content="Simple productivity app for for quick and easy daily planning"
+        />
+      </head>
+      <body className={nunito.variable}>
+        <Provider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Theme>
+              <ModeToggle />
+              <Container size="4" p="9">
+                {children}
+              </Container>
+              <Toaster />
+            </Theme>
+          </ThemeProvider>
+        </Provider>
+      </body>
     </html>
   );
 }
