@@ -7,6 +7,8 @@ import { Container, Theme } from "@radix-ui/themes";
 import { Nunito } from "next/font/google";
 import { Provider } from "jotai";
 import { Toaster } from "sonner";
+import { ThemeProvider } from "@/components/shared/theme-provider";
+import { ModeToggle } from "@/components/shared/mode-toggle";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -20,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="title" content="Daily Checkmate" />
         <meta
@@ -30,12 +32,20 @@ export default function RootLayout({
       </head>
       <body className={nunito.variable}>
         <Provider>
-          <Theme appearance="light" accentColor="blue" radius="small">
-            <Container size="4" p="9">
-              {children}
-            </Container>
-            <Toaster />
-          </Theme>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Theme>
+              <ModeToggle />
+              <Container size="4" p="9">
+                {children}
+              </Container>
+              <Toaster />
+            </Theme>
+          </ThemeProvider>
         </Provider>
       </body>
     </html>
