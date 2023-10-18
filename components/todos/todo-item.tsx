@@ -22,7 +22,7 @@ const TodoItem = ({ id }: { id: Todo["id"] }) => {
     );
   }
   return (
-    <Box className="border rounded-md h-[70px]" p="4">
+    <Box className="border rounded-xl h-[70px]" p="4">
       <Flex justify="between" align="center">
         <Flex gap="3" align="center" className="w-[90%]">
           {status === "todo" && (
