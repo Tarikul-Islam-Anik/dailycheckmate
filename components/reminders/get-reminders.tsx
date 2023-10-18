@@ -13,6 +13,7 @@ const GetReminders = ({
   reminderStatus: ReminderStatus;
 }) => {
   const [reminders] = useAtom(reminderAtom);
+
   const filteredReminders = reminders
     .map((reminder: Reminder) => {
       reminder.status !== "trash" &&
@@ -20,11 +21,7 @@ const GetReminders = ({
         (reminder.status = "completed");
       return reminder;
     })
-    .filter((reminder: Reminder) => reminder.status === reminderStatus)
-    .sort(
-      (a: Reminder, b: Reminder) =>
-        new Date(a.deadline).getTime() - new Date(b.deadline).getTime()
-    );
+    .filter((reminder: Reminder) => reminder.status === reminderStatus);
 
   return filteredReminders.length !== 0 ? (
     filteredReminders.map((reminder) => {
