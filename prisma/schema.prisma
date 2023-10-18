@@ -30,3 +30,12 @@ model Reminder {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+model Habits {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  progress    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
