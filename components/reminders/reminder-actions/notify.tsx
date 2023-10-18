@@ -5,8 +5,8 @@ import TooltipParent from "@/components/shared/tooltip-parent";
 
 const Notify = () => {
   return (
-    <TooltipParent content="This service is not available yet">
-      <Button variant="outline" className="w-full">
+    <TooltipParent content="This feature is not available yet">
+      <Button variant="outline" className="w-full cursor-not-allowed">
         <BellIcon className="w-5 h-5 mr-2" />
         <Text as="span">Notify</Text>
       </Button>
