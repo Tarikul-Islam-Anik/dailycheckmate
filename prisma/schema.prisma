@@ -45,28 +45,40 @@ model Account {
 }
 
 model Todo {
-  id          String   @id @default(uuid())
+  id          String     @id @default(uuid())
   title       String
   description String?
-  status      String   @default("todo")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  status      TodoStatus @default(todo)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   userId      String
-  user        User     @relation(fields: [userId], references: [id])
+  user        User       @relation(fields: [userId], references: [id])
+}
+
+enum TodoStatus {
+  todo
+  completed
+  trash
 }
 
 model Reminder {
-  id           String   @id @default(uuid())
+  id           String         @id @default(uuid())
   title        String
   description  String?
   links        String[]
   deadline     DateTime
   reminderTime DateTime
-  status       String   @default("reminder")
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  status       ReminderStatus @default(reminder)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
   userId       String
-  user         User     @relation(fields: [userId], references: [id])
+  user         User           @relation(fields: [userId], references: [id])
+}
+
+enum ReminderStatus {
+  reminder
+  completed
+  trash
 }
 
 model Habits {
