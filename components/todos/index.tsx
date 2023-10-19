@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { Grid, Flex, Heading, Text, Section } from "@radix-ui/themes";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreateNew from "../shared/create-new";
 import GetTodos from "./get-todos";
 import EmptyTrash from "../shared/empty-trash";
+import SortItems from "../shared/sort-items";
 
 const TabItems: ("todo" | "completed" | "trash")[] = [
   "todo",
@@ -36,30 +37,29 @@ const TodoList = () => {
                 </TabsTrigger>
               ))}
             </TabsList>
-            {currentTab === "trash" ? (
-              <EmptyTrash type="todos" />
-            ) : (
-              <CreateNew
-                type="todos"
-                title="✏ Add todo"
-                description="You can edit and view your todo later."
-              />
-            )}
+            <Flex gap="2">
+              <SortItems type="todos" />
+              {currentTab === "trash" ? (
+                <EmptyTrash type="todos" />
+              ) : (
+                <CreateNew
+                  type="todos"
+                  title="✏ Add todo"
+                  description="You can edit and view your todo later."
+                />
+              )}
+            </Flex>
           </Flex>
-          {TabItems.map((tab) => (
-            <TabsContent key={tab} value={tab}>
-              <Grid
-                columns="3"
-                rows="auto 1fr"
-                gap="3"
-                width="auto"
-                p="4"
-                className="border rounded-md max-h-[264px] min-h-[264px] overflow-y-scroll"
-              >
-                <GetTodos todoStatus={tab} />
-              </Grid>
-            </TabsContent>
-          ))}
+          <Grid
+            columns="3"
+            rows="auto 1fr"
+            gap="3"
+            width="auto"
+            p="4"
+            className="border rounded-2xl max-h-[264px] min-h-[264px] overflow-y-auto"
+          >
+            <GetTodos todoStatus={currentTab} />
+          </Grid>
         </Flex>
       </Tabs>
     </Section>

@@ -20,7 +20,7 @@ export async function Create(
   data: {
     title: string;
     description?: string;
-    links?: string;
+    links?: string[];
     deadline?: Date;
     reminderTime?: Date;
   }

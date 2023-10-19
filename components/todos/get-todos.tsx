@@ -11,12 +11,9 @@ type TodoStatus = "todo" | "completed" | "trash";
 const GetTodos = ({ todoStatus }: { todoStatus: TodoStatus }) => {
   const [todos] = useAtom(todoAtom);
 
-  const filteredTodos = todos
-    .filter((todo: Todo) => todo.status === todoStatus)
-    .sort(
-      (a: Todo, b: Todo) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    );
+  const filteredTodos = todos.filter(
+    (todo: Todo) => todo.status === todoStatus
+  );
 
   return filteredTodos.length !== 0 ? (
     filteredTodos.map((todo: Todo) => {

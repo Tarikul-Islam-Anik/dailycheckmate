@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Grid, Flex, Heading, Text, Section } from "@radix-ui/themes";
+import { Flex, Heading, Text, Section } from "@radix-ui/themes";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreateNew from "../shared/create-new";
 import EmptyTrash from "../shared/empty-trash";
 import GetReminders from "./get-reminders";
+import SortItems from "../shared/sort-items";
 
 const TabItems: ("reminder" | "completed" | "trash")[] = [
   "reminder",
@@ -36,23 +37,26 @@ const ReminderList = () => {
                 </TabsTrigger>
               ))}
             </TabsList>
-            {currentTab === "trash" ? (
-              <EmptyTrash type="reminders" />
-            ) : (
-              <CreateNew
-                type="reminders"
-                title="📅 Add Reminder"
-                description="You can edit and view your reminder later."
-              />
-            )}
+            <Flex gap="2">
+              <SortItems type="reminders" />
+              {currentTab === "trash" ? (
+                <EmptyTrash type="reminders" />
+              ) : (
+                <CreateNew
+                  type="reminders"
+                  title="📅 Add Reminder"
+                  description="You can edit and view your reminder later."
+                />
+              )}
+            </Flex>
           </Flex>
-          {TabItems.map((tab) => (
-            <TabsContent key={tab} value={tab}>
-              <Flex gap="3" p="4" className="border rounded-md overflow-x-auto min-h-[250px]">
-                <GetReminders reminderStatus={tab} />
-              </Flex>
-            </TabsContent>
-          ))}
+          <Flex
+            gap="3"
+            p="4"
+            className="border rounded-2xl overflow-x-auto min-h-[250px]"
+          >
+            <GetReminders reminderStatus={currentTab} />
+          </Flex>
         </Flex>
       </Tabs>
     </Section>

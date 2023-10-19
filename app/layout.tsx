@@ -9,6 +9,8 @@ import { Provider } from "jotai";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 import { ModeToggle } from "@/components/shared/mode-toggle";
+import { SessionProvider } from "next-auth/react";
+import LoginBtn from "@/components/shared/login-btn";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -31,22 +33,25 @@ export default function RootLayout({
         />
       </head>
       <body className={nunito.variable}>
-        <Provider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Theme>
-              <ModeToggle />
-              <Container size="4" p="9">
-                {children}
-              </Container>
-              <Toaster />
-            </Theme>
-          </ThemeProvider>
-        </Provider>
+        <SessionProvider>
+          <Provider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Theme>
+                <LoginBtn />
+                <ModeToggle />
+                <Container size="4" p="9">
+                  {children}
+                </Container>
+                <Toaster />
+              </Theme>
+            </ThemeProvider>
+          </Provider>
+        </SessionProvider>
       </body>
     </html>
   );

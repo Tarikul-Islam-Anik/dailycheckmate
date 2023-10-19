@@ -7,7 +7,7 @@ import { Reminder } from "@/lib/types";
 import { ToggleStatus } from "@/lib/actions";
 import ViewReminder from "./view-reminder";
 import Notify from "./notify";
-import Tooltip from "@/components/shared/tooltip";
+import TooltipParent from "@/components/shared/tooltip-parent";
 
 const ReminderActions = ({
   id,
@@ -45,7 +45,7 @@ const ReminderActions = ({
         <ViewReminder id={id} />
         <Notify />
       </div>
-      <Tooltip content={tooltipContent}>
+      <TooltipParent content={tooltipContent}>
         <Button
           variant="ghost"
           onClick={() =>
@@ -56,7 +56,7 @@ const ReminderActions = ({
         >
           {icon}
         </Button>
-      </Tooltip>
+      </TooltipParent>
     </CardFooter>
   );
 };

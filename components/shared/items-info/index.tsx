@@ -28,7 +28,8 @@ const ItemInfo = ({
           Object.entries(data).map(([key, value]) => {
             return (
               key !== "id" &&
-              key !== "updatedAt" && (
+              key !== "updatedAt" &&
+              key !== "userId" && (
                 <div
                   key={key}
                   className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0"
