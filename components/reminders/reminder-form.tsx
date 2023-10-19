@@ -54,14 +54,16 @@ const ReminderForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
     control: form.control,
   });
 
-  const [reminders, setReminders] = useAtom(reminderAtom);
+  const [, setReminders] = useAtom(reminderAtom);
 
   async function onSubmit(data: ReminderformValues) {
-    const links = data?.links
-      ?.map((link) => link.value !== "https://example.com/" && link.value)
-      .join("\n");
-    delete data.links;
+    const links =
+      data?.links
+        ?.filter((link) => link.value !== "https://example.com/")
+        .map((link) => link.value) || [];
+
     const reminderData = { ...data, links };
+
     setOpen(false);
     toast.promise(
       Create("reminders", reminderData).then((res) => {
