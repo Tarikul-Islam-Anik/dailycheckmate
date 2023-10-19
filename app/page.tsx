@@ -9,7 +9,6 @@ import { sortByNewest } from "@/lib/utils";
 import { Todo, Reminder } from "@/lib/types";
 import ReminderList from "@/components/reminders";
 import TodoList from "@/components/todos";
-import HabitsList from "@/components/habit";
 
 export default function Home() {
   const [, setTodos] = useAtom(todoAtom);
@@ -34,7 +33,6 @@ export default function Home() {
     <Flex direction="column" width="100%" gap="9">
       <TodoList />
       <ReminderList />
-      <HabitsList />
     </Flex>
   );
 }
