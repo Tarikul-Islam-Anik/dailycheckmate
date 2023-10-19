@@ -28,7 +28,7 @@ const TodoForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
     },
   });
 
-  const [todos, setTodos] = useAtom(todoAtom);
+  const [, setTodos] = useAtom(todoAtom);
 
   async function onSubmit(data: TodoformValues) {
     setOpen(false);
@@ -43,6 +43,7 @@ const TodoForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
       }
     );
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
