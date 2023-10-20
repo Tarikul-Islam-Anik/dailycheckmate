@@ -1,6 +1,27 @@
 type IconProps = React.HTMLAttributes<SVGElement>;
 
 export const Icons = {
+  logo: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      x="0"
+      y="0"
+      enableBackground="new 0 0 32 32"
+      version="1.1"
+      viewBox="0 0 32 32"
+      xmlSpace="preserve"
+      {...props}
+    >
+      <path
+        d="M9.01 25.87h10.71c1.94 0 3.51-1.58 3.51-3.51v-4.85c0-.46-.37-.84-.84-.84s-.84.37-.84.84v4.85c0 1.01-.83 1.84-1.84 1.84H9.01c-1.01 0-1.84-.83-1.84-1.84V11.65c0-1.01.83-1.84 1.84-1.84h7.78c.46 0 .84-.37.84-.84s-.37-.84-.84-.84H9.01c-1.94 0-3.51 1.58-3.51 3.51v10.71c0 1.95 1.58 3.52 3.51 3.52z"
+        className="st0"
+      ></path>
+      <path
+        d="M12.79 14.4c-.6-.7-1.66-.78-2.36-.17-.7.6-.78 1.66-.17 2.36l3.33 3.85c.32.37.78.58 1.27.58s.95-.21 1.27-.58L26.09 8.9c.6-.7.53-1.76-.17-2.36-.7-.6-1.76-.53-2.36.17l-8.71 10.08-2.06-2.39z"
+        className="st0"
+      ></path>
+    </svg>
+  ),
   gitHub: (props: IconProps) => (
     <svg viewBox="0 0 438.549 438.549" {...props}>
       <path
