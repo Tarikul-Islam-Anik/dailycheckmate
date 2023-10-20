@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const ViewOptions = () => {
+const ViewFilterOptions = () => {
   const [filter, setFilter] = useState("in-progress");
   return (
     <DropdownMenu>
@@ -43,4 +43,4 @@ const ViewOptions = () => {
   );
 };
 
-export default ViewOptions;
+export default ViewFilterOptions;
