@@ -1,7 +1,8 @@
 import { atom } from "jotai";
-import { Todo, Reminder } from "./lib/types";
+import { Todo, Reminder, Habits } from "./lib/types";
 
 const todoAtom = atom<Todo[]>([]);
 const reminderAtom = atom<Reminder[]>([]);
+const habitAtom = atom<Habits[]>([]);
 
-export { todoAtom, reminderAtom };
+export { todoAtom, reminderAtom, habitAtom };
