@@ -1,6 +1,6 @@
 "use client";
 import { useAtom } from "jotai";
-import { todoAtom, reminderAtom } from "@/atom";
+import { todoAtom, reminderAtom } from "@/lib/atom";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
 import { EmptyTrash as ET } from "@/lib/actions";

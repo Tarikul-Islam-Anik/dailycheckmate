@@ -4,8 +4,8 @@ import { Icons } from "./icons";
 const Logo = () => {
   return (
     <Flex align="center">
-      <Icons.logo className="w-12 h-12 fill-violet-500" />
-      <Text className="text-2xl font-bold" as="span">
+      <Icons.logo className="w-12 h-12 fill-primary" />
+      <Text size='6' className="font-bold" as="span">
         DailyCheckmate
       </Text>
     </Flex>
