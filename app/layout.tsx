@@ -4,7 +4,7 @@ import "@radix-ui/themes/styles.css";
 import { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import { Toaster } from "sonner";
-import { SessionProvider } from "next-auth/react";
+import AuthProvider from "./context/AuthContext";
 import Providers from "@/components/shared/providers";
 
 const nunito = Nunito({
@@ -34,12 +34,12 @@ export default function RootLayout({
         />
       </head>
       <body className={nunito.variable}>
-        <SessionProvider>
+        <AuthProvider>
           <Providers>
             {children}
             <Toaster />
           </Providers>
-        </SessionProvider>
+        </AuthProvider>
         <script async src="https://cdn.splitbee.io/sb.js" />
       </body>
     </html>
