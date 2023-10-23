@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { useAtom } from "jotai";
-import { todoAtom } from "@/atom";
+import { todoAtom } from "@/lib/atom";
 import { Box, Flex } from "@radix-ui/themes";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -22,7 +21,7 @@ const TodoItem = ({ id }: { id: Todo["id"] }) => {
     );
   }
   return (
-    <Box className="border rounded-xl h-[70px]" p="4">
+    <Box className="border rounded-xl h-[70px]" p="4" my="3">
       <Flex justify="between" align="center">
         <Flex gap="3" align="center" className="w-[90%]">
           {status === "todo" && (

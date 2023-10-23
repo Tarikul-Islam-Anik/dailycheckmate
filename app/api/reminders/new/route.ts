@@ -18,8 +18,7 @@ export async function POST(request: NextRequest) {
       title: body.title,
       description: body.description,
       links: body.links,
-      deadline: body.deadline,
-      reminderTime: body.reminderTime,
+      schedule: body.schedule,
     },
   });
 

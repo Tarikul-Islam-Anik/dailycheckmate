@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "sonner";
 
 export async function Edit(
-  type: "todos" | "reminders",
+  type: "todos" | "reminders" | "habits",
   id: string,
   status: string,
   title: string,
@@ -11,14 +11,18 @@ export async function Edit(
   return await axios.put(`/api/${type}/${id}`, { status, title, description });
 }
 
-export async function Delete(type: "todos" | "reminders", id: string) {
+export async function Delete(
+  type: "todos" | "reminders" | "habits",
+  id: string
+) {
   return await axios.delete(`/api/${type}/${id}`);
 }
 
 export async function Create(
-  type: "todos" | "reminders",
+  type: "todos" | "reminders" | "habits",
   data: {
     title: string;
+    color?: string;
     description?: string;
     links?: string[];
     deadline?: Date;
@@ -29,19 +33,19 @@ export async function Create(
 }
 
 export async function ToggleStatus(
-  type: "todos" | "reminders",
+  type: "todos" | "reminders" | "habits",
   id: string,
   title: string,
   status: "todo" | "reminder" | "completed" | "trash"
 ) {
   return await toast.promise(axios.put(`/api/${type}/${id}`, { status }), {
-    loading: `"${title}" is moving to ${status.toUpperCase()} tab...`,
-    success: `"${title}" is moved to ${status.toUpperCase()} tab!`,
-    error: `Failed to move "${title}" to ${status.toUpperCase()} tab. Please try again later.`,
+    loading: `"${title}" is marking as ${status.toUpperCase()}...`,
+    success: `"${title}" is marked as ${status.toUpperCase()}!`,
+    error: `Failed to mark "${title}" as ${status.toUpperCase()}. Please try again later.`,
   });
 }
 
-export async function EmptyTrash(type: "todos" | "reminders") {
+export async function EmptyTrash(type: "todos" | "reminders" | "habits") {
   return await toast.promise(axios.delete(`/api/${type}`), {
     loading: `Clearing trash...`,
     success: `Trash is cleared!`,

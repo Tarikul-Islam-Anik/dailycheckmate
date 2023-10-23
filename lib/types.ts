@@ -43,8 +43,7 @@ const reminderSchema = z.object({
   title: z.string(),
   description: z.string().optional(),
   links: z.array(z.string()).optional(),
-  deadline: z.string(),
-  reminderTime: z.string(),
+  schedule: z.string(),
   status: z.enum(["reminder", "completed", "trash"]).default("reminder"),
   createdAt: z.string(),
   updatedAt: z.string(),
@@ -54,10 +53,9 @@ const reminderSchema = z.object({
 const habitsSchema = z.object({
   id: z.string(),
   title: z.string(),
-  description: z.string().optional(),
-  days: z.array(z.string()).optional(),
+  color: z.string().optional(),
+  days: z.array(z.date()),
   createdAt: z.string(),
-  updatedAt: z.string(),
   userId: z.string(),
 });
 

@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { todoAtom, reminderAtom } from "@/atom";
+import { todoAtom, reminderAtom } from "@/lib/atom";
 import { Todo, Reminder } from "@/lib/types";
 import { DialogContent } from "@/components/ui/dialog";
 import DescriptionTerm from "./description-term";
