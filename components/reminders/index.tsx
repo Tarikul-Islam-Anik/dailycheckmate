@@ -1,65 +1,34 @@
 "use client";
 
 import { useState } from "react";
-import { Flex, Heading, Text, Section } from "@radix-ui/themes";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import CreateNew from "../shared/create-new";
-import EmptyTrash from "../shared/empty-trash";
+import { Flex, Heading, Box } from "@radix-ui/themes";
+import FilterOptions from "../shared/filter-options";
+import { ScrollArea } from "../ui/scroll-area";
 import GetReminders from "./get-reminders";
-import SortItems from "../shared/sort-items";
-
-const TabItems: ("reminder" | "completed" | "trash")[] = [
-  "reminder",
-  "completed",
-  "trash",
-];
 
 const ReminderList = () => {
-  const [currentTab, setCurrentTab] =
-    useState<(typeof TabItems)[number]>("reminder");
+  const [reminderStatus, setReminderStatus] = useState<
+    "reminder" | "completed" | "trash"
+  >("reminder");
   return (
-    <Section p="0">
-      <Tabs
-        defaultValue="reminder"
-        onValueChange={(value) =>
-          setCurrentTab(value as (typeof TabItems)[number])
-        }
+    <Box>
+      <Flex justify="between" align="center">
+        <Heading as="h3" size="5">
+          Reminders
+        </Heading>
+        <FilterOptions
+          type="reminder"
+          filter={reminderStatus}
+          setFilter={setReminderStatus as any}
+        />
+      </Flex>
+      <ScrollArea
+        className="h-[370px] overflow-y-scroll flex flex-col rounded-xl"
+        scrollHideDelay={0}
       >
-        <Flex direction="column" gap="5">
-          <Flex justify="between">
-            <Heading as="h2" size="6">
-              <Text as="span">⏰ Reminders</Text>
-            </Heading>
-            <TabsList>
-              {TabItems.map((tab) => (
-                <TabsTrigger key={tab} value={tab} className="capitalize">
-                  {tab}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-            <Flex gap="2">
-              <SortItems type="reminders" />
-              {currentTab === "trash" ? (
-                <EmptyTrash type="reminders" />
-              ) : (
-                <CreateNew
-                  type="reminders"
-                  title="📅 Add Reminder"
-                  description="You can edit and view your reminder later."
-                />
-              )}
-            </Flex>
-          </Flex>
-          <Flex
-            gap="3"
-            p="4"
-            className="border rounded-2xl overflow-x-auto min-h-[250px]"
-          >
-            <GetReminders reminderStatus={currentTab} />
-          </Flex>
-        </Flex>
-      </Tabs>
-    </Section>
+        <GetReminders reminderStatus={reminderStatus} />
+      </ScrollArea>
+    </Box>
   );
 };
 

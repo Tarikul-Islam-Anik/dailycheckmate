@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { todoAtom } from "@/atom";
+import { todoAtom } from "@/lib/atom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,11 +32,7 @@ const actions = [
   },
 ];
 
-const TodoActionMenu = ({
-  id,
-}: {
-  id: Todo["id"];
-}) => {
+const TodoActionMenu = ({ id }: { id: Todo["id"] }) => {
   const [todos, setTodos] = useAtom(todoAtom);
   const { title, status } = todos.find((todo: Todo) => todo.id === id)!;
 
@@ -65,7 +61,7 @@ const TodoActionMenu = ({
         >
           <EllipsisHorizontalIcon className="w-5 h-5" />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="text-muted-foreground">
+        <DropdownMenuContent>
           <DialogTrigger asChild>
             <DropdownMenuItem>
               <EyeIcon className="w-5 h-5 mr-2" />
