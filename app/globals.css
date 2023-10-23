@@ -74,6 +74,10 @@
   }
 
   ::selection {
-    @apply bg-primary-foreground;
+    @apply bg-primary;
+  }
+  input::selection,
+  textarea::selection {
+    @apply text-white;
   }
 }
