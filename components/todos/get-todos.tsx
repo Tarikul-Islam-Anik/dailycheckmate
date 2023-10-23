@@ -1,7 +1,7 @@
 "use client";
 
 import { useAtom } from "jotai";
-import { todoAtom } from "@/atom";
+import { todoAtom } from "@/lib/atom";
 import { Todo } from "@/lib/types";
 import TodoItem from "./todo-item";
 import Message from "../shared/message";
@@ -20,7 +20,7 @@ const GetTodos = ({ todoStatus }: { todoStatus: TodoStatus }) => {
       return <TodoItem key={todo.id} id={todo.id} />;
     })
   ) : (
-    <Message message="No todos found." />
+    <Message message="No todos found." className="h-[calc(100vh-14rem)]" />
   );
 };
 

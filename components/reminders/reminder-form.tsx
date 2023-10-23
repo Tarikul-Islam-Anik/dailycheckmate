@@ -1,27 +1,19 @@
 import * as z from "zod";
 import { useAtom } from "jotai";
 import { toast } from "sonner";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Create } from "@/lib/actions";
-import { reminderAtom } from "@/atom";
+import { reminderAtom } from "@/lib/atom";
 import { Reminder } from "@/lib/types";
 import TitleAndDescription from "../shared/title-and-description";
 import { Icons } from "../shared/icons";
 import DatePicker from "../shared/date-picker";
-import { cn } from "@/lib/utils";
-import { Input } from "../ui/input";
+import UrlFields from "./url-fields";
+import { sortByNewest } from "@/lib/utils";
 
 const ReminderformSchema = z.object({
   title: z.string().min(1).max(100),
@@ -33,8 +25,7 @@ const ReminderformSchema = z.object({
       })
     )
     .optional(),
-  deadline: z.date(),
-  reminderTime: z.date(),
+  schedule: z.date(),
 });
 
 type ReminderformValues = z.infer<typeof ReminderformSchema>;
@@ -47,11 +38,6 @@ const ReminderForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
       description: "",
       links: [{ value: "https://example.com/" }],
     },
-  });
-
-  const { fields, append } = useFieldArray({
-    name: "links",
-    control: form.control,
   });
 
   const [, setReminders] = useAtom(reminderAtom);
@@ -67,7 +53,11 @@ const ReminderForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
     setOpen(false);
     toast.promise(
       Create("reminders", reminderData).then((res) => {
-        setReminders((prev: Reminder[]) => [res.data, ...prev]);
+        setReminders((prev: Reminder[]) =>
+          [res.data, ...prev].sort((a: Reminder, b: Reminder) => {
+            return sortByNewest(a.schedule, b.schedule);
+          })
+        );
       }),
       {
         loading: `Creating Reminder "${data.title}"...`,
@@ -76,46 +66,13 @@ const ReminderForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
       }
     );
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <TitleAndDescription form={form} />
-        <div className="flex space-x-4">
-          <DatePicker form={form} label="Deadline" name="deadline" />
-          <DatePicker form={form} label="Reminder Time" name="reminderTime" />
-        </div>
-        <div>
-          {fields.map((field, index) => (
-            <FormField
-              control={form.control}
-              key={field.id}
-              name={`links.${index}.value`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className={cn(index !== 0 && "sr-only")}>
-                    URLs
-                  </FormLabel>
-                  <FormDescription className={cn(index !== 0 && "sr-only")}>
-                    Add relevant URLs for this reminder.
-                  </FormDescription>
-                  <FormControl>
-                    <Input {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ))}
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            className="mt-2"
-            onClick={() => append({ value: "" })}
-          >
-            Add URL
-          </Button>
-        </div>
+        <DatePicker form={form} label="Schedule" name="schedule" />
+        <UrlFields form={form} />
         <DialogFooter>
           <Button
             type="submit"

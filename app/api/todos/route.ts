@@ -3,19 +3,26 @@ import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../auth/[...nextauth]/route";
 
-export async function GET(request: NextRequest) {
+export async function PUT(request: NextRequest) {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const todo = await prisma.todo.findMany({
+  await prisma.todo.updateMany({
     where: {
       userId: session.user.id,
+      status: "completed",
+    },
+    data: {
+      status: "trash",
     },
   });
-  return NextResponse.json(todo, { status: 200 });
+  return NextResponse.json(
+    { message: "Moved all completed todos to trash" },
+    { status: 201 }
+  );
 }
 
 export async function DELETE(request: NextRequest) {
@@ -25,11 +32,14 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const todo = await prisma.todo.deleteMany({
+  await prisma.todo.deleteMany({
     where: {
       userId: session.user.id,
       status: "trash",
     },
   });
-  return NextResponse.json({ status: 201 });
+  return NextResponse.json(
+    { message: "Deleted all todos in trash" },
+    { status: 201 }
+  );
 }

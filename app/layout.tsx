@@ -3,14 +3,12 @@
 import "./globals.css";
 import "./theme-config.css";
 import "@radix-ui/themes/styles.css";
-import { Container, Theme } from "@radix-ui/themes";
+import { Grid, Theme } from "@radix-ui/themes";
 import { Nunito } from "next/font/google";
 import { Provider } from "jotai";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/shared/theme-provider";
-import { ModeToggle } from "@/components/shared/mode-toggle";
 import { SessionProvider } from "next-auth/react";
-import LoginBtn from "@/components/shared/login-btn";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -41,12 +39,8 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <Theme>
-                <LoginBtn />
-                <ModeToggle />
-                <Container size="4" p="9">
-                  {children}
-                </Container>
+              <Theme className="h-screen">
+                {children}
                 <Toaster />
               </Theme>
             </ThemeProvider>

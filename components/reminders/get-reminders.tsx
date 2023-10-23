@@ -1,6 +1,7 @@
 "use client";
+
 import { useAtom } from "jotai";
-import { reminderAtom } from "@/atom";
+import { reminderAtom } from "@/lib/atom";
 import { Reminder } from "@/lib/types";
 import ReminderItem from "./reminder-item";
 import Message from "../shared/message";
@@ -17,7 +18,7 @@ const GetReminders = ({
   const filteredReminders = reminders
     .map((reminder: Reminder) => {
       reminder.status !== "trash" &&
-        new Date() > new Date(reminder.deadline) &&
+        new Date() > new Date(reminder.schedule) &&
         (reminder.status = "completed");
       return reminder;
     })
@@ -28,7 +29,7 @@ const GetReminders = ({
       return <ReminderItem key={reminder.id} id={reminder.id} />;
     })
   ) : (
-    <Message message="No reminders found." />
+    <Message message="No reminders found." className="h-[370px]" />
   );
 };
 
