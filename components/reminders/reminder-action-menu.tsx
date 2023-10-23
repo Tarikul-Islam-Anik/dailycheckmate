@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { reminderAtom } from "@/atom";
+import { reminderAtom } from "@/lib/atom";
 import { Text } from "@radix-ui/themes";
 import { Button } from "@/components/ui/button";
 import {
