@@ -1,7 +1,7 @@
 "use client";
 
 import { useAtom } from "jotai";
-import { todoAtom, reminderAtom } from "@/atom";
+import { todoAtom, reminderAtom } from "@/lib/atom";
 import { Text } from "@radix-ui/themes";
 import { sortByNewest, sortByOldest } from "@/lib/utils";
 import {

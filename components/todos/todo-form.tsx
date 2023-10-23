@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Create } from "@/lib/actions";
-import { todoAtom } from "@/atom";
+import { todoAtom } from "@/lib/atom";
 import { Todo } from "@/lib/types";
 import TitleAndDescription from "../shared/title-and-description";
 import { Icons } from "../shared/icons";
