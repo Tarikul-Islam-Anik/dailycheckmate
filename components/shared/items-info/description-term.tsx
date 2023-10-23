@@ -1,6 +1,6 @@
 const DescriptionTerm = ({ term }: { term: string }) => {
   return (
-    <dt className="text-sm font-medium leading-6 capitalize text-gray-900">
+    <dt className="text-sm font-medium leading-6 capitalize">
       {term === "createdAt"
         ? "Created at"
         : term === "reminderTime"

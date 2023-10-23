@@ -23,7 +23,7 @@ const ItemInfo = ({
 
   return (
     <DialogContent>
-      <dl className="divide-y divide-gray-100">
+      <dl className="divide-y divide-gray-100 dark:divide-muted-foreground">
         {data &&
           Object.entries(data).map(([key, value]) => {
             return (
