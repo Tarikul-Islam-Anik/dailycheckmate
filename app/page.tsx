@@ -34,7 +34,7 @@ export default function HomePage() {
     });
   }, []);
 
-  return isDesktop && width! > 1600 ? (
+  return isDesktop && width! > 1280 ? (
     <Grid columns="4" height="100%">
       <LeftColumn />
       <Box className="col-span-2">
