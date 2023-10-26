@@ -2,14 +2,13 @@
 
 import { useState } from 'react';
 import { Flex } from '@radix-ui/themes';
-import FilterOptions from '../shared/filter-options';
-import { ScrollArea } from '../ui/scroll-area';
+import { Todo } from '@/lib/types';
 import GetTodos from './get-todos';
+import { ScrollArea } from '../ui/scroll-area';
+import FilterOptions from '../shared/filter-options';
 
 const TodoList = () => {
-  const [todoStatus, setTodoStatus] = useState<'todo' | 'completed' | 'trash'>(
-    'todo'
-  );
+  const [todoStatus, setTodoStatus] = useState<Todo['status']>('todo');
 
   return (
     <>

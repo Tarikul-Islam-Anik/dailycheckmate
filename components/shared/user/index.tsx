@@ -19,7 +19,7 @@ const User = () => {
         <Text as='span' className='text-muted-foreground'>
           {greeting},
         </Text>
-        <Text>{session?.user?.name ?? 'there'} </Text>
+        <Text>{session?.user?.name ?? 'There'} </Text>
       </Heading>
       <UserNav session={session} />
     </Flex>

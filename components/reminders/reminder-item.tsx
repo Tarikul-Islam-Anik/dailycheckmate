@@ -1,5 +1,8 @@
 import { useAtom } from 'jotai';
+import { format } from 'date-fns';
+import { Text } from '@radix-ui/themes';
 import { reminderAtom } from '@/lib/atom';
+import { Reminder } from '@/lib/types';
 import {
   Card,
   CardContent,
@@ -7,10 +10,7 @@ import {
   CardTitle,
   CardDescription,
 } from '@/components/ui/card';
-import { Text } from '@radix-ui/themes';
-import { Reminder } from '@/lib/types';
-import { format } from 'date-fns';
-import ReminderActionMenu from './reminder-action-menu';
+import ItemActionMenu from '@/components/shared/item-action-menu';
 
 const RerminderItem = ({ id }: { id: Reminder['id'] }) => {
   const [reminders] = useAtom(reminderAtom);
@@ -23,7 +23,7 @@ const RerminderItem = ({ id }: { id: Reminder['id'] }) => {
       <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
         <CardTitle className='line-clamp-1'>{title}</CardTitle>
         <CardDescription>
-          <ReminderActionMenu id={id} />
+          <ItemActionMenu type='reminder' id={id} />
         </CardDescription>
       </CardHeader>
       <CardContent className='flex flex-col space-y-4'>

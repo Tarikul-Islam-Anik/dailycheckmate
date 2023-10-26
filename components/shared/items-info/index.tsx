@@ -12,14 +12,10 @@ const ItemInfo = ({
   id,
 }: {
   id: ItemInfoProps['id'];
-  type: 'todos' | 'reminders';
+  type: 'todo' | 'reminder';
 }) => {
-  const [todos] = useAtom(todoAtom);
-  const [reminders] = useAtom(reminderAtom);
-  const data =
-    type === 'todos'
-      ? todos.find((todo) => todo.id === id)
-      : reminders.find((reminder) => reminder.id === id);
+  const [items, setItems] = useAtom(type === 'todo' ? todoAtom : reminderAtom);
+  const data = items.find((item: ItemInfoProps) => item.id === id);
 
   return (
     <DialogContent>

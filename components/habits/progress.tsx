@@ -3,7 +3,7 @@ import { useAtom } from 'jotai';
 import { habitAtom, showHabitProgressAtom } from '@/lib/atom';
 import HabitItem from './habit-item';
 import ProgressCalender from './progress-calender';
-import { Habits } from '@/lib/types';
+import { Habit } from '@/lib/types';
 import Message from '../shared/message';
 
 const HabitProgress = () => {
@@ -25,7 +25,7 @@ const HabitProgress = () => {
       ))}
     </Flex>
   ) : (
-    <ProgressCalender progress={progress as Habits} setProgress={setProgress} />
+    <ProgressCalender progress={progress as Habit} setProgress={setProgress} />
   );
 };
 

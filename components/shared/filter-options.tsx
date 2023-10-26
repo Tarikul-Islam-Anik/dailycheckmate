@@ -2,6 +2,7 @@
 
 import { MixerHorizontalIcon } from '@radix-ui/react-icons';
 import { Flex, Text } from '@radix-ui/themes';
+import { Todo, Reminder } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
@@ -15,7 +16,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import ChangeBulkStatus from './change-bulk-status';
 
-type status = 'reminder' | 'todo' | 'completed' | 'trash';
+type status = Todo['status'] | Reminder['status'];
 
 const FilterOptions = ({
   type,
