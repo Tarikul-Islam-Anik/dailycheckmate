@@ -9,14 +9,17 @@ const HomePage = () => {
   const { setTheme } = useTheme();
 
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
-    event.preventDefault();
     if (isHotkey('mod+l', event)) {
+      event.preventDefault();
       setTheme('light');
     }
     if (isHotkey('mod+d', event)) {
+      event.preventDefault();
       setTheme('dark');
     }
     if (isHotkey('mod+s', event)) {
+      event.preventDefault();
+
       setTheme('system');
     }
   }, []);
