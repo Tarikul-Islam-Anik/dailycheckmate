@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useCallback } from 'react';
 import isHotkey from 'is-hotkey';
 import { useTheme } from 'next-themes';
