@@ -13,8 +13,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { PowerIcon } from '@heroicons/react/24/outline';
+import { PowerIcon, UserIcon, KeyIcon } from '@heroicons/react/24/outline';
 import { ThemeModeSelect } from '../theme-mode-select';
+import Link from 'next/link';
+import isHotkey from 'is-hotkey';
+import { useTheme } from 'next-themes';
 
 export function UserNav({ session }: { session: any }) {
   return (
@@ -30,7 +33,9 @@ export function UserNav({ session }: { session: any }) {
               {session?.user?.name
                 ?.split(' ')
                 .map((n: string[]) => n[0])
-                .join('')}
+                .join('') ?? (
+                <UserIcon className='h-6 w-6 text-muted-foreground' />
+              )}
             </AvatarFallback>
           </Avatar>
         </Button>
@@ -39,15 +44,25 @@ export function UserNav({ session }: { session: any }) {
         <DropdownMenuLabel className='font-normal'>
           <div className='flex flex-col space-y-1'>
             <p className='text-sm font-medium leading-none'>
-              {session?.user?.name!}
+              {session?.user?.name! ?? 'Not signed in'}
             </p>
             <p className='text-xs leading-none text-muted-foreground'>
-              {session?.user?.email!}
+              {session?.user?.email! ?? 'Your data is not synced!'}
             </p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
+          {!session && (
+            <Link href='/auth'>
+              <DropdownMenuItem>
+                <Flex align='center'>
+                  <KeyIcon className='mr-2 h-5 w-5' />
+                  <Text as='span'>Sign in</Text>
+                </Flex>
+              </DropdownMenuItem>
+            </Link>
+          )}
           <ThemeModeSelect />
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
