@@ -43,11 +43,3 @@ export async function ToggleStatus(
     error: `Failed to mark "${title}" as ${status.toUpperCase()}. Please try again later.`,
   });
 }
-
-export async function EmptyTrash(type: ItemType) {
-  return await toast.promise(axios.delete(`/api/${type}s`), {
-    loading: `Clearing trash...`,
-    success: `Trash is cleared!`,
-    error: `Failed to empty trash. Please try again later.`,
-  });
-}
