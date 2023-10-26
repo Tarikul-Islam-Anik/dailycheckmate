@@ -1,27 +1,27 @@
-"use client";
-import { useState } from "react";
-import { Text } from "@radix-ui/themes";
+'use client';
+import { useState } from 'react';
+import { Text } from '@radix-ui/themes';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import HabitsAndProgressToggle from "./habits-and-progress-toggle";
-import GetHabits from "./get-habits";
-import { ScrollArea } from "../ui/scroll-area";
-import HabitProgress from "./progress";
+} from '@/components/ui/card';
+import HabitsAndProgressToggle from './habits-and-progress-toggle';
+import GetHabits from './get-habits';
+import { ScrollArea } from '../ui/scroll-area';
+import HabitProgress from './progress';
 
 const HabitsList = () => {
   const [toggle, setToggle] = useState(false);
 
   return (
-    <Card className="w-full border-0 shadow-none">
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
+    <Card className='w-full border-0 shadow-none'>
+      <CardHeader className='flex flex-row items-center justify-between pb-2'>
         <CardTitle>
-          <Text size="5" as="span">
-            Habits {toggle && "Progress"}
+          <Text size='5' as='span'>
+            Habits {toggle && 'Progress'}
           </Text>
         </CardTitle>
         <CardDescription>
@@ -29,7 +29,7 @@ const HabitsList = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ScrollArea className="h-[300px]">
+        <ScrollArea className='h-[300px]'>
           {toggle ? <HabitProgress /> : <GetHabits />}
         </ScrollArea>
       </CardContent>

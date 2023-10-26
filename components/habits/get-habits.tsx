@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import axios from "axios";
-import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
-import { stagger, useAnimate } from "framer-motion";
-import { toast } from "sonner";
-import { Flex } from "@radix-ui/themes";
-import { Habits } from "@/lib/types";
-import { habitAtom } from "@/lib/atom";
-import HabitItem from "./habit-item";
-import Message from "../shared/message";
+import axios from 'axios';
+import { useAtom } from 'jotai';
+import { useEffect, useState } from 'react';
+import { stagger, useAnimate } from 'framer-motion';
+import { toast } from 'sonner';
+import { Flex } from '@radix-ui/themes';
+import { Habits } from '@/lib/types';
+import { habitAtom } from '@/lib/atom';
+import HabitItem from './habit-item';
+import Message from '../shared/message';
 
 function isChecked(id: string, habits: Habits[]) {
   const lastTimeChecked =
-    habits.find((habit) => habit.id === id)?.days?.slice(-1)[0] ?? "";
-  const today = new Date().toISOString().split("T")[0];
-  if (lastTimeChecked === "") return false;
-  return new Date(lastTimeChecked).toISOString().split("T")[0] === today;
+    habits.find((habit) => habit.id === id)?.days?.slice(-1)[0] ?? '';
+  const today = new Date().toISOString().split('T')[0];
+  if (lastTimeChecked === '') return false;
+  return new Date(lastTimeChecked).toISOString().split('T')[0] === today;
 }
 
 const GetHabits = () => {
@@ -51,7 +51,7 @@ const GetHabits = () => {
 
       if (random < 1 / 3) {
         animate(
-          "button",
+          'button',
           { scale: [1, 1.25, 1] },
           {
             duration: 0.35,
@@ -60,7 +60,7 @@ const GetHabits = () => {
         );
       } else if (random < 2 / 3) {
         animate(
-          "button",
+          'button',
           { x: [0, 2, -2, 0] },
           {
             duration: 0.4,
@@ -69,7 +69,7 @@ const GetHabits = () => {
         );
       } else {
         animate(
-          "button",
+          'button',
           { rotate: [0, 10, -10, 0] },
           {
             duration: 0.5,
@@ -78,8 +78,8 @@ const GetHabits = () => {
         );
       }
     }
-    toast.promise(axios.put("/api/habits/" + id), {
-      loading: "Marking as completed...",
+    toast.promise(axios.put('/api/habits/' + id), {
+      loading: 'Marking as completed...',
       success: () => {
         setHabits((habits) =>
           habits.map((habit) =>
@@ -91,14 +91,14 @@ const GetHabits = () => {
               : habit
           )
         );
-        return "Marked as completed! Keep it up!";
+        return 'Marked as completed! Keep it up!';
       },
-      error: "Error marking as completed",
+      error: 'Error marking as completed',
     });
   }
 
   return items.length !== 0 ? (
-    <Flex ref={ref} direction="column" gap="4" ml="1" mt="1">
+    <Flex ref={ref} direction='column' gap='4' ml='1' mt='1'>
       {items.map((item) => (
         <HabitItem
           key={item.id}
@@ -112,7 +112,7 @@ const GetHabits = () => {
   ) : (
     <Message
       message="No habits yet. /newline/ Add one to get started! /newline/ Let's build some good habits!"
-      className="h-[300px] text-sm"
+      className='h-[300px] text-sm'
     />
   );
 };

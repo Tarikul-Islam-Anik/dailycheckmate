@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useAtom } from "jotai";
-import { todoAtom } from "@/lib/atom";
-import { Todo } from "@/lib/types";
-import TodoItem from "./todo-item";
-import Message from "../shared/message";
+import { useAtom } from 'jotai';
+import { todoAtom } from '@/lib/atom';
+import { Todo } from '@/lib/types';
+import TodoItem from './todo-item';
+import Message from '../shared/message';
 
-type TodoStatus = "todo" | "completed" | "trash";
+type TodoStatus = 'todo' | 'completed' | 'trash';
 
 const GetTodos = ({ todoStatus }: { todoStatus: TodoStatus }) => {
   const [todos] = useAtom(todoAtom);
@@ -20,7 +20,7 @@ const GetTodos = ({ todoStatus }: { todoStatus: TodoStatus }) => {
       return <TodoItem key={todo.id} id={todo.id} />;
     })
   ) : (
-    <Message message="No todos found." className="h-[calc(100vh-14rem)]" />
+    <Message message='No todos found.' className='h-[calc(100vh-14rem)]' />
   );
 };
 

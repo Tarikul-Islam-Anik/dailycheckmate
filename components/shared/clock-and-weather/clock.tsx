@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Counter } from "../../animations/animated-number";
-import { Flex, Text } from "@radix-ui/themes";
+import { useEffect, useState } from 'react';
+import { Counter } from '../../animations/animated-number';
+import { Flex, Text } from '@radix-ui/themes';
 
 const Clock = () => {
   const [time, setTime] = useState(new Date());
@@ -15,41 +15,41 @@ const Clock = () => {
   }, []);
 
   return (
-    <Flex gap="1" align="center">
+    <Flex gap='1' align='center'>
       <Counter
         value={parseInt(
-          time.toLocaleTimeString("en-US", {
-            hour: "numeric",
+          time.toLocaleTimeString('en-US', {
+            hour: 'numeric',
             hour12: true,
           })
         )}
       />
-      <Text size="7" as="span">
+      <Text size='7' as='span'>
         :
       </Text>
       <Counter
         value={parseInt(
-          time.toLocaleTimeString("en-US", {
-            minute: "numeric",
+          time.toLocaleTimeString('en-US', {
+            minute: 'numeric',
             hour12: true,
           })
         )}
       />
-      <Text size="7" as="span">
+      <Text size='7' as='span'>
         :
       </Text>
       <Counter
         value={parseInt(
-          time.toLocaleTimeString("en-US", {
-            second: "numeric",
+          time.toLocaleTimeString('en-US', {
+            second: 'numeric',
             hour12: true,
           })
         )}
       />
-      <Text size="7" as="span" ml="2">
+      <Text size='7' as='span' ml='2'>
         {time
-          .toLocaleTimeString("en-US", {
-            hour: "numeric",
+          .toLocaleTimeString('en-US', {
+            hour: 'numeric',
             hour12: true,
           })
           .slice(-2)}

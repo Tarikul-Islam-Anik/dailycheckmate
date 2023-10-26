@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import axios from "axios";
-import { useEffect } from "react";
-import { useAtom } from "jotai";
-import { Grid, Box } from "@radix-ui/themes";
-import { todoAtom, reminderAtom, habitAtom } from "@/lib/atom";
-import LeftColumn from "./left-column";
-import RightColumn from "./right-column";
-import MiddleColumn from "./middle-column";
-import { sortByNewest } from "@/lib/utils";
-import { Todo, Reminder } from "@/lib/types";
-import useMediaQuery from "@/lib/hooks/use-media-query";
-import Message from "@/components/shared/message";
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useAtom } from 'jotai';
+import { Grid, Box } from '@radix-ui/themes';
+import { todoAtom, reminderAtom, habitAtom } from '@/lib/atom';
+import LeftColumn from './left-column';
+import RightColumn from './right-column';
+import MiddleColumn from './middle-column';
+import { sortByNewest } from '@/lib/utils';
+import { Todo, Reminder } from '@/lib/types';
+import useMediaQuery from '@/lib/hooks/use-media-query';
+import Message from '@/components/shared/message';
 
 export default function Home() {
   const [, setTodos] = useAtom(todoAtom);
@@ -20,7 +20,7 @@ export default function Home() {
   const { isDesktop, width } = useMediaQuery();
 
   useEffect(() => {
-    axios.get("/api/get-data").then((res) => {
+    axios.get('/api/get-data').then((res) => {
       const { todos, reminders, habits } = res.data;
       setTodos(
         todos.sort((a: Todo, b: Todo) => sortByNewest(a.createdAt, b.createdAt))
@@ -35,17 +35,17 @@ export default function Home() {
   }, []);
 
   return isDesktop && width! > 1600 ? (
-    <Grid columns="4" height="100%">
+    <Grid columns='4' height='100%'>
       <LeftColumn />
-      <Box className="col-span-2">
+      <Box className='col-span-2'>
         <MiddleColumn />
       </Box>
       <RightColumn />
     </Grid>
   ) : (
     <Message
-      message="Hey 👋 there! DailyCheckmate is only optimized for desktop. Support for mobile is coming soon!"
-      className="h-screen"
+      message='Hey 👋 there! DailyCheckmate is only optimized for desktop. Support for mobile is coming soon!'
+      className='h-screen'
     />
   );
 }

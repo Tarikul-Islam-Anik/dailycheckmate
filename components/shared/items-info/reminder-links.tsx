@@ -1,13 +1,13 @@
 const ReminderLinks = ({ links }: { links: string[] }) => {
   return links ? (
-    <ul className="list-disc list-inside marker:text-primary">
+    <ul className='list-inside list-disc marker:text-primary'>
       {links.map((link: string) => (
-        <li key={link} className="list-item line-clamp-1">
+        <li key={link} className='line-clamp-1 list-item'>
           <a
             href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="-mt-2 text-muted-foreground"
+            target='_blank'
+            rel='noopener noreferrer'
+            className='-mt-2 text-muted-foreground'
           >
             {link}
           </a>

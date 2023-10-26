@@ -1,8 +1,8 @@
-import axios from "axios";
-import { toast } from "sonner";
+import axios from 'axios';
+import { toast } from 'sonner';
 
 export async function Edit(
-  type: "todos" | "reminders" | "habits",
+  type: 'todos' | 'reminders' | 'habits',
   id: string,
   status: string,
   title: string,
@@ -12,14 +12,14 @@ export async function Edit(
 }
 
 export async function Delete(
-  type: "todos" | "reminders" | "habits",
+  type: 'todos' | 'reminders' | 'habits',
   id: string
 ) {
   return await axios.delete(`/api/${type}/${id}`);
 }
 
 export async function Create(
-  type: "todos" | "reminders" | "habits",
+  type: 'todos' | 'reminders' | 'habits',
   data: {
     title: string;
     color?: string;
@@ -33,10 +33,10 @@ export async function Create(
 }
 
 export async function ToggleStatus(
-  type: "todos" | "reminders" | "habits",
+  type: 'todos' | 'reminders' | 'habits',
   id: string,
   title: string,
-  status: "todo" | "reminder" | "completed" | "trash"
+  status: 'todo' | 'reminder' | 'completed' | 'trash'
 ) {
   return await toast.promise(axios.put(`/api/${type}/${id}`, { status }), {
     loading: `"${title}" is marking as ${status.toUpperCase()}...`,
@@ -45,7 +45,7 @@ export async function ToggleStatus(
   });
 }
 
-export async function EmptyTrash(type: "todos" | "reminders" | "habits") {
+export async function EmptyTrash(type: 'todos' | 'reminders' | 'habits') {
   return await toast.promise(axios.delete(`/api/${type}`), {
     loading: `Clearing trash...`,
     success: `Trash is cleared!`,

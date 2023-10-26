@@ -1,8 +1,8 @@
-import NextAuth from "next-auth/next";
-import prisma from "@/lib/prisma";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import GoogleProvider from "next-auth/providers/google";
-import { SessionStrategy } from "next-auth";
+import NextAuth from 'next-auth/next';
+import prisma from '@/lib/prisma';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import GoogleProvider from 'next-auth/providers/google';
+import { SessionStrategy } from 'next-auth';
 
 export const authOptions = {
   adapter: PrismaAdapter(prisma),
@@ -13,11 +13,11 @@ export const authOptions = {
     }),
   ],
   pages: {
-    signIn: "/auth",
+    signIn: '/auth',
   },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
-    strategy: "jwt" as SessionStrategy,
+    strategy: 'jwt' as SessionStrategy,
     maxAge: 30 * 24 * 60 * 60,
     updateAge: 24 * 60 * 60,
   },
@@ -35,7 +35,7 @@ export const authOptions = {
       return token;
     },
   },
-  debug: process.env.NODE_ENV === "development",
+  debug: process.env.NODE_ENV === 'development',
 };
 
 const handler = NextAuth(authOptions);

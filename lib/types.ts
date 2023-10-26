@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 const userSchema = z.object({
   id: z.string(),
@@ -32,7 +32,7 @@ const todoSchema = z.object({
   id: z.string(),
   title: z.string(),
   description: z.string().optional(),
-  status: z.enum(["todo", "completed", "trash"]).default("todo"),
+  status: z.enum(['todo', 'completed', 'trash']).default('todo'),
   createdAt: z.string(),
   updatedAt: z.string(),
   userId: z.string(),
@@ -44,7 +44,7 @@ const reminderSchema = z.object({
   description: z.string().optional(),
   links: z.array(z.string()).optional(),
   schedule: z.string(),
-  status: z.enum(["reminder", "completed", "trash"]).default("reminder"),
+  status: z.enum(['reminder', 'completed', 'trash']).default('reminder'),
   createdAt: z.string(),
   updatedAt: z.string(),
   userId: z.string(),

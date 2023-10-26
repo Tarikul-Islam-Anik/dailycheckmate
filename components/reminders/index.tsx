@@ -1,29 +1,29 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Flex, Heading, Box } from "@radix-ui/themes";
-import FilterOptions from "../shared/filter-options";
-import { ScrollArea } from "../ui/scroll-area";
-import GetReminders from "./get-reminders";
+import { useState } from 'react';
+import { Flex, Heading, Box } from '@radix-ui/themes';
+import FilterOptions from '../shared/filter-options';
+import { ScrollArea } from '../ui/scroll-area';
+import GetReminders from './get-reminders';
 
 const ReminderList = () => {
   const [reminderStatus, setReminderStatus] = useState<
-    "reminder" | "completed" | "trash"
-  >("reminder");
+    'reminder' | 'completed' | 'trash'
+  >('reminder');
   return (
     <Box>
-      <Flex justify="between" align="center">
-        <Heading as="h3" size="5">
+      <Flex justify='between' align='center'>
+        <Heading as='h3' size='5'>
           Reminders
         </Heading>
         <FilterOptions
-          type="reminder"
+          type='reminder'
           filter={reminderStatus}
           setFilter={setReminderStatus as any}
         />
       </Flex>
       <ScrollArea
-        className="h-[370px] overflow-y-scroll flex flex-col rounded-xl"
+        className='flex h-[370px] flex-col overflow-y-scroll rounded-xl'
         scrollHideDelay={0}
       >
         <GetReminders reminderStatus={reminderStatus} />

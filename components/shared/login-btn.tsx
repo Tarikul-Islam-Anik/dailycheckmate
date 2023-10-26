@@ -1,16 +1,16 @@
-"use client";
-import { signIn } from "next-auth/react";
-import { Button } from "../ui/button";
+'use client';
+import { signIn } from 'next-auth/react';
+import { Button } from '../ui/button';
 
 const LoginBtn = () => {
   return (
     <Button
       onClick={() =>
-        signIn("google", {
-          callbackUrl: "/",
+        signIn('google', {
+          callbackUrl: '/',
         })
       }
-      className=" fixed top-4 right-16"
+      className=' fixed right-16 top-4'
     >
       Sign In
     </Button>
