@@ -12,6 +12,7 @@ import { useTheme } from 'next-themes';
 import {
   DropdownMenuItem,
   DropdownMenuPortal,
+  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -30,23 +31,30 @@ export function ThemeModeSelect() {
       </DropdownMenuSubTrigger>
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
-          <DropdownMenuItem onClick={() => setTheme('light')}>
+          <DropdownMenuItem
+            onSelect={() => {
+              setTheme('light');
+            }}
+          >
             <Flex align='center'>
               <SunIcon className='mr-2 h-5 w-5' />
               <Text as='span'>Light</Text>
             </Flex>
+            <DropdownMenuShortcut>⌘L</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme('dark')}>
+          <DropdownMenuItem onSelect={() => setTheme('dark')}>
             <Flex align='center'>
               <MoonIcon className='mr-2 h-5 w-5' />
               <Text as='span'>Dark</Text>
             </Flex>
+            <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme('system')}>
+          <DropdownMenuItem onSelect={() => setTheme('system')}>
             <Flex align='center'>
               <ComputerDesktopIcon className='mr-2 h-5 w-5' />
               <Text as='span'>System</Text>
             </Flex>
+            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuSubContent>
       </DropdownMenuPortal>
