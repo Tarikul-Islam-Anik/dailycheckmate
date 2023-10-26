@@ -1,28 +1,34 @@
 import { useAtom } from 'jotai';
 import { Flex } from '@radix-ui/themes';
 import { TrashIcon } from '@radix-ui/react-icons';
+import { useSession } from 'next-auth/react';
+import { Delete } from '@/lib/actions';
 import { habitAtom, showHabitProgressAtom } from '@/lib/atom';
 import { Button } from '../ui/button';
 import AlertDialogParent from '../shared/alert-dialog-parent';
 import TooltipParent from '../shared/tooltip-parent';
 import { Icons } from '../shared/icons';
 import { toast } from 'sonner';
-import { Delete } from '@/lib/actions';
 
 const HabitActions = ({ id }: { id: string }) => {
+  const { data: session } = useSession();
   const [habits, setHabits] = useAtom(habitAtom);
   const [, setShowHabitProgress] = useAtom(showHabitProgressAtom);
 
   const deleteHabit = (id: string) => {
     const filteredHabits = habits.filter((habit) => habit.id !== id);
-    toast.promise(Delete('habits', id), {
-      loading: 'Deleting habit...',
-      success: () => {
-        setHabits(filteredHabits);
-        return 'Habit deleted successfully';
-      },
-      error: 'Error deleting habit',
-    });
+    if (session) {
+      toast.promise(Delete('habit', id), {
+        loading: 'Deleting habit...',
+        success: () => {
+          setHabits(filteredHabits);
+          return 'Habit deleted successfully';
+        },
+        error: 'Error deleting habit',
+      });
+    } else {
+      setHabits(filteredHabits);
+    }
   };
 
   return (

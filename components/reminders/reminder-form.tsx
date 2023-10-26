@@ -1,7 +1,9 @@
 import * as z from 'zod';
 import { useAtom } from 'jotai';
-import { toast } from 'sonner';
+import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
+import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
@@ -28,9 +30,21 @@ const ReminderformSchema = z.object({
   schedule: z.date(),
 });
 
+function setData(
+  setReminders: (arg0: (prev: Reminder[]) => Reminder[]) => void,
+  data: Reminder
+) {
+  setReminders((prev: Reminder[]) =>
+    [data, ...prev].sort((a: Reminder, b: Reminder) => {
+      return sortByNewest(a.schedule, b.schedule);
+    })
+  );
+}
+
 type ReminderformValues = z.infer<typeof ReminderformSchema>;
 
 const ReminderForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
+  const { data: session } = useSession();
   const form = useForm<ReminderformValues>({
     resolver: zodResolver(ReminderformSchema),
     defaultValues: {
@@ -51,20 +65,30 @@ const ReminderForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
     const reminderData = { ...data, links };
 
     setOpen(false);
-    toast.promise(
-      Create('reminders', reminderData).then((res) => {
-        setReminders((prev: Reminder[]) =>
-          [res.data, ...prev].sort((a: Reminder, b: Reminder) => {
-            return sortByNewest(a.schedule, b.schedule);
-          })
-        );
-      }),
-      {
-        loading: `Creating Reminder "${data.title}"...`,
-        success: `Reminder "${data.title}" is created!`,
-        error: `Failed to create Reminder "${data.title}". Please try again later.`,
-      }
-    );
+    if (session) {
+      toast.promise(
+        Create('reminder', reminderData).then((res) => {
+          setData(setReminders, res.data);
+        }),
+        {
+          loading: `Creating Reminder "${data.title}"...`,
+          success: `Reminder "${data.title}" is created!`,
+          error: `Failed to create Reminder "${data.title}". Please try again later.`,
+        }
+      );
+    } else {
+      const reminder: Reminder = {
+        id: uuidv4(),
+        status: 'reminder',
+        title: data.title,
+        description: data.description,
+        schedule: data.schedule.toISOString(),
+        links,
+        createdAt: new Date().toISOString(),
+        userId: '',
+      };
+      setData(setReminders, reminder);
+    }
   }
 
   return (

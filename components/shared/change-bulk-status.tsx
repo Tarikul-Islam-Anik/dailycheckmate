@@ -1,9 +1,29 @@
 import axios from 'axios';
 import React from 'react';
-import { Button } from '../ui/button';
 import { toast } from 'sonner';
-import { todoAtom } from '@/lib/atom';
 import { useAtom } from 'jotai/react';
+import { todoAtom } from '@/lib/atom';
+import { Todo } from '@/lib/types';
+import { Button } from '../ui/button';
+import { useSession } from 'next-auth/react';
+
+function changeStatus(
+  status: string,
+  setTodo: (arg0: (prev: Todo[]) => Todo[]) => void
+) {
+  if (status === 'completed') {
+    setTodo((prev) =>
+      prev.map((todo) => {
+        if (todo.status === 'completed') {
+          return { ...todo, status: 'trash' };
+        }
+        return todo;
+      })
+    );
+  } else {
+    setTodo((prev) => prev.filter((todo) => todo.status !== 'trash'));
+  }
+}
 
 const ChangeBulkStatus = ({
   type,
@@ -12,33 +32,28 @@ const ChangeBulkStatus = ({
   type: 'reminder' | 'todo' | 'habit';
   status: 'completed' | 'trash';
 }) => {
+  const { data: session } = useSession();
   const [, setTodo] = useAtom(todoAtom);
 
   function handleClick() {
-    toast.promise(
-      status === 'completed'
-        ? axios.put('/api/' + type + 's')
-        : axios.delete('/api/' + type + 's'),
-      {
-        loading: status === 'completed' ? 'Moving to trash' : 'Clearing trash',
-        success: () => {
-          if (status === 'completed') {
-            setTodo((prev) =>
-              prev.map((todo) => {
-                if (todo.status === 'completed') {
-                  return { ...todo, status: 'trash' };
-                }
-                return todo;
-              })
-            );
-          } else {
-            setTodo((prev) => prev.filter((todo) => todo.status !== 'trash'));
-          }
-          return status === 'completed' ? 'Moved to trash' : 'Cleared trash';
-        },
-        error: status === 'completed' ? 'Failed to move to trash' : 'Failed',
-      }
-    );
+    if (session) {
+      toast.promise(
+        status === 'completed'
+          ? axios.put('/api/' + type)
+          : axios.delete('/api/' + type),
+        {
+          loading:
+            status === 'completed' ? 'Moving to trash' : 'Clearing trash',
+          success: () => {
+            changeStatus(status, setTodo);
+            return status === 'completed' ? 'Moved to trash' : 'Cleared trash';
+          },
+          error: status === 'completed' ? 'Failed to move to trash' : 'Failed',
+        }
+      );
+    } else {
+      changeStatus(status, setTodo);
+    }
   }
 
   return (

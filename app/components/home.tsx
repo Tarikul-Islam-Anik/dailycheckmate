@@ -5,36 +5,42 @@ import { useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { Grid, Box } from '@radix-ui/themes';
 import { todoAtom, reminderAtom, habitAtom } from '@/lib/atom';
-import LeftColumn from './left-column';
-import RightColumn from './right-column';
-import MiddleColumn from './middle-column';
+import { useSession } from 'next-auth/react';
 import { sortByNewest } from '@/lib/utils';
 import { Todo, Reminder } from '@/lib/types';
 import useMediaQuery from '@/lib/hooks/use-media-query';
 import Message from '@/components/shared/message';
+import LeftColumn from './left-column';
+import RightColumn from './right-column';
+import MiddleColumn from './middle-column';
 
-export default function Home() {
+export default function HomePage() {
   const [, setTodos] = useAtom(todoAtom);
   const [, setReminders] = useAtom(reminderAtom);
   const [, setHabits] = useAtom(habitAtom);
+  const { data: session } = useSession();
   const { isDesktop, width } = useMediaQuery();
 
   useEffect(() => {
-    axios.get('/api/get-data').then((res) => {
-      const { todos, reminders, habits } = res.data;
-      setTodos(
-        todos.sort((a: Todo, b: Todo) => sortByNewest(a.createdAt, b.createdAt))
-      );
-      setReminders(
-        reminders.sort((a: Reminder, b: Reminder) =>
-          sortByNewest(a.schedule, b.schedule)
-        )
-      );
-      setHabits(habits);
-    });
+    if (session) {
+      axios.get('/api/get-data').then((res) => {
+        const { todos, reminders, habits } = res.data;
+        setTodos(
+          todos.sort((a: Todo, b: Todo) =>
+            sortByNewest(a.createdAt, b.createdAt)
+          )
+        );
+        setReminders(
+          reminders.sort((a: Reminder, b: Reminder) =>
+            sortByNewest(a.schedule, b.schedule)
+          )
+        );
+        setHabits(habits);
+      });
+    }
   }, []);
 
-  return isDesktop && width! > 1600 ? (
+  return isDesktop && width! > 1280 ? (
     <Grid columns='4' height='100%'>
       <LeftColumn />
       <Box className='col-span-2'>

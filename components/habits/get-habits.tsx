@@ -2,16 +2,17 @@
 
 import axios from 'axios';
 import { useAtom } from 'jotai';
-import { useEffect, useState } from 'react';
-import { stagger, useAnimate } from 'framer-motion';
 import { toast } from 'sonner';
 import { Flex } from '@radix-ui/themes';
-import { Habits } from '@/lib/types';
+import { useEffect, useState } from 'react';
+import { stagger, useAnimate } from 'framer-motion';
+import { useSession } from 'next-auth/react';
+import { Habit } from '@/lib/types';
 import { habitAtom } from '@/lib/atom';
 import HabitItem from './habit-item';
 import Message from '../shared/message';
 
-function isChecked(id: string, habits: Habits[]) {
+function isChecked(id: string, habits: Habit[]) {
   const lastTimeChecked =
     habits.find((habit) => habit.id === id)?.days?.slice(-1)[0] ?? '';
   const today = new Date().toISOString().split('T')[0];
@@ -19,11 +20,28 @@ function isChecked(id: string, habits: Habits[]) {
   return new Date(lastTimeChecked).toISOString().split('T')[0] === today;
 }
 
+function MarkHabit(
+  setHabits: (arg0: (habits: Habit[]) => Habit[]) => void,
+  id: string
+) {
+  setHabits((habits) =>
+    habits.map((habit) =>
+      habit.id === id
+        ? {
+            ...habit,
+            days: [...(habit.days ?? []), new Date()],
+          }
+        : habit
+    )
+  );
+}
+
 const GetHabits = () => {
   const [habits, setHabits] = useAtom(habitAtom);
   const [items, setItems] = useState<
     { id: string; text: string; checked: boolean }[]
   >([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     setItems(
@@ -78,23 +96,18 @@ const GetHabits = () => {
         );
       }
     }
-    toast.promise(axios.put('/api/habits/' + id), {
-      loading: 'Marking as completed...',
-      success: () => {
-        setHabits((habits) =>
-          habits.map((habit) =>
-            habit.id === id
-              ? {
-                  ...habit,
-                  days: [...(habit.days ?? []), new Date()],
-                }
-              : habit
-          )
-        );
-        return 'Marked as completed! Keep it up!';
-      },
-      error: 'Error marking as completed',
-    });
+    if (session) {
+      toast.promise(axios.put('/api/habits/' + id), {
+        loading: 'Marking as completed...',
+        success: () => {
+          MarkHabit(setHabits, id);
+          return 'Marked as completed! Keep it up!';
+        },
+        error: 'Error marking as completed',
+      });
+    } else {
+      MarkHabit(setHabits, id);
+    }
   }
 
   return items.length !== 0 ? (
