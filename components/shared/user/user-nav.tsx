@@ -53,25 +53,26 @@ export function UserNav({ session }: { session: any }) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {!session && (
-            <Link href='/auth'>
-              <DropdownMenuItem>
-                <Flex align='center'>
-                  <KeyIcon className='mr-2 h-5 w-5' />
-                  <Text as='span'>Sign in</Text>
-                </Flex>
-              </DropdownMenuItem>
-            </Link>
-          )}
           <ThemeModeSelect />
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onSelect={() => signOut()}>
-          <Flex align='center'>
-            <PowerIcon className='mr-2 h-5 w-5' />
-            <Text as='span'>Sign out</Text>
-          </Flex>
-        </DropdownMenuItem>
+        {!session ? (
+          <Link href='/auth'>
+            <DropdownMenuItem>
+              <Flex align='center'>
+                <KeyIcon className='mr-2 h-5 w-5' />
+                <Text as='span'>Sign in</Text>
+              </Flex>
+            </DropdownMenuItem>
+          </Link>
+        ) : (
+          <DropdownMenuItem onSelect={() => signOut()}>
+            <Flex align='center'>
+              <PowerIcon className='mr-2 h-5 w-5' />
+              <Text as='span'>Sign out</Text>
+            </Flex>
+          </DropdownMenuItem>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
