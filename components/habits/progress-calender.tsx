@@ -1,5 +1,5 @@
 import { Flex, Text } from '@radix-ui/themes';
-import { Habits } from '@/lib/types';
+import { Habit } from '@/lib/types';
 import { Calendar } from '../ui/calendar';
 import { Button } from '../ui/button';
 import { ArrowLeftIcon } from '@radix-ui/react-icons';
@@ -8,7 +8,7 @@ const ProgressCalender = ({
   progress,
   setProgress,
 }: {
-  progress: Habits;
+  progress: Habit;
   setProgress: (value: {}) => void;
 }) => {
   const daysCompleted = [...progress.days.map((item) => new Date(item))];
