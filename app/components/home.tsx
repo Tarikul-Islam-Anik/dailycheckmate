@@ -15,9 +15,9 @@ import RightColumn from './right-column';
 import MiddleColumn from './middle-column';
 
 export default function HomePage() {
-  const [, setTodos] = useAtom(todoAtom);
-  const [, setReminders] = useAtom(reminderAtom);
-  const [, setHabits] = useAtom(habitAtom);
+  const [offlineTodos, setTodos] = useAtom(todoAtom);
+  const [offlineReminders, setReminders] = useAtom(reminderAtom);
+  const [offlineHabits, setHabits] = useAtom(habitAtom);
   const { data: session } = useSession();
   const { isDesktop, width } = useMediaQuery();
 
@@ -26,16 +26,16 @@ export default function HomePage() {
       axios.get('/api/get-data').then((res) => {
         const { todos, reminders, habits } = res.data;
         setTodos(
-          todos.sort((a: Todo, b: Todo) =>
+          [...offlineTodos, ...todos].sort((a: Todo, b: Todo) =>
             sortByNewest(a.createdAt, b.createdAt)
           )
         );
         setReminders(
-          reminders.sort((a: Reminder, b: Reminder) =>
-            sortByNewest(a.schedule, b.schedule)
+          [...offlineReminders, ...reminders].sort((a: Reminder, b: Reminder) =>
+            sortByNewest(a.createdAt, b.createdAt)
           )
         );
-        setHabits(habits);
+        setHabits([...offlineHabits, ...habits]);
       });
     }
   }, []);
