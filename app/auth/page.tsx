@@ -1,8 +1,10 @@
 'use client';
 import { Grid, Flex, Heading, Text } from '@radix-ui/themes';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Icons } from '@/components/shared/icons';
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
+import { UserIcon } from '@heroicons/react/24/outline';
 const AuthPage = () => {
   return (
     <Grid columns='1' align='center' className='h-screen place-items-center'>
@@ -13,15 +15,29 @@ const AuthPage = () => {
             Welcome to DailyCheckmate
           </Heading>
           <Text as='p' className='text-muted-foreground'>
-            Please login to continue. Your data is safe with us.
+            Login to sync your data across devices. Or continue as guest.
+          </Text>
+          <Text as='p' size='2' className='text-muted-foreground'>
+            Guest accounts are not synced across devices and will be deleted
           </Text>
         </Flex>
-        <Button variant='outline' onClick={() => signIn('google')}>
-          <Flex gap='2' align='center'>
-            <Icons.google className='h-4 w-4' />
-            <Text>Continue with Google</Text>
-          </Flex>
-        </Button>
+        <Flex align='center' width='auto' direction='column' gap='4'>
+          <Button variant='outline' onClick={() => signIn('google')}>
+            <Flex gap='2' align='center'>
+              <Icons.google className='h-4 w-4' />
+              <Text>Continue with Google</Text>
+            </Flex>
+          </Button>
+          <Link
+            href='/'
+            className={buttonVariants({ variant: 'secondary' }) + ' w-full'}
+          >
+            <Flex gap='2' align='center'>
+              <UserIcon className='h-4 w-4' />
+              <Text>Continue as Guest</Text>
+            </Flex>
+          </Link>
+        </Flex>
       </Flex>
     </Grid>
   );
