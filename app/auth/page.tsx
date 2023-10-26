@@ -1,10 +1,12 @@
 'use client';
+
 import { Grid, Flex, Heading, Text } from '@radix-ui/themes';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Icons } from '@/components/shared/icons';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { UserIcon } from '@heroicons/react/24/outline';
+
 const AuthPage = () => {
   return (
     <Grid columns='1' align='center' className='h-screen place-items-center'>
@@ -22,7 +24,14 @@ const AuthPage = () => {
           </Text>
         </Flex>
         <Flex align='center' width='auto' direction='column' gap='4'>
-          <Button variant='outline' onClick={() => signIn('google')}>
+          <Button
+            variant='outline'
+            onClick={() =>
+              signIn('google', {
+                callbackUrl: '/',
+              })
+            }
+          >
             <Flex gap='2' align='center'>
               <Icons.google className='h-4 w-4' />
               <Text>Continue with Google</Text>
