@@ -25,7 +25,7 @@ const accountSchema = z.object({
   oauth_token_secret: z.string().optional(),
   oauth_token: z.string().optional(),
   createdAt: z.string(),
-  updatedAt: z.string(),
+  updatedAt: z.string().optional(),
 });
 
 const todoSchema = z.object({
@@ -34,7 +34,7 @@ const todoSchema = z.object({
   description: z.string().optional(),
   status: z.enum(['todo', 'completed', 'trash']).default('todo'),
   createdAt: z.string(),
-  updatedAt: z.string(),
+  updatedAt: z.string().optional(),
   userId: z.string(),
 });
 
@@ -46,11 +46,11 @@ const reminderSchema = z.object({
   schedule: z.string(),
   status: z.enum(['reminder', 'completed', 'trash']).default('reminder'),
   createdAt: z.string(),
-  updatedAt: z.string(),
+  updatedAt: z.string().optional(),
   userId: z.string(),
 });
 
-const habitsSchema = z.object({
+const habitSchema = z.object({
   id: z.string(),
   title: z.string(),
   color: z.string().optional(),
@@ -63,4 +63,4 @@ export type User = z.infer<typeof userSchema>;
 export type Account = z.infer<typeof accountSchema>;
 export type Todo = z.infer<typeof todoSchema>;
 export type Reminder = z.infer<typeof reminderSchema>;
-export type Habits = z.infer<typeof habitsSchema>;
+export type Habit = z.infer<typeof habitSchema>;
