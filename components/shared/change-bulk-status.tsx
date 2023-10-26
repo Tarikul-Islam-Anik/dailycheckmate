@@ -6,6 +6,7 @@ import { todoAtom } from '@/lib/atom';
 import { Todo } from '@/lib/types';
 import { Button } from '../ui/button';
 import { useSession } from 'next-auth/react';
+import AlertDialogParent from './alert-dialog-parent';
 
 function changeStatus(
   status: string,
@@ -56,10 +57,20 @@ const ChangeBulkStatus = ({
     }
   }
 
-  return (
+  return status === 'completed' ? (
     <Button variant='secondary' onClick={handleClick}>
-      {status === 'completed' ? 'Move to trash' : 'Clear trash'}
+      Move to trash
     </Button>
+  ) : (
+    <AlertDialogParent
+      title='Are you sure?'
+      description='This action is irreversible. All the items in the trash will be deleted permanently.'
+      action={handleClick}
+    >
+      <Button variant='secondary'>
+        Clear trash
+      </Button>
+    </AlertDialogParent>
   );
 };
 
