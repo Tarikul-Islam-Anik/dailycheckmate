@@ -1,25 +1,24 @@
-import axios from "axios";
-import { toast } from "sonner";
+import axios from 'axios';
+import { toast } from 'sonner';
+
+type ItemType = 'todo' | 'reminder' | 'habit';
 
 export async function Edit(
-  type: "todos" | "reminders" | "habits",
+  type: ItemType,
   id: string,
   status: string,
   title: string,
   description: string
 ) {
-  return await axios.put(`/api/${type}/${id}`, { status, title, description });
+  return await axios.put(`/api/${type}s/${id}`, { status, title, description });
 }
 
-export async function Delete(
-  type: "todos" | "reminders" | "habits",
-  id: string
-) {
-  return await axios.delete(`/api/${type}/${id}`);
+export async function Delete(type: ItemType, id: string) {
+  return await axios.delete(`/api/${type}s/${id}`);
 }
 
 export async function Create(
-  type: "todos" | "reminders" | "habits",
+  type: ItemType,
   data: {
     title: string;
     color?: string;
@@ -29,26 +28,18 @@ export async function Create(
     reminderTime?: Date;
   }
 ) {
-  return await axios.post(`/api/${type}/new`, data);
+  return await axios.post(`/api/${type}s/new`, data);
 }
 
 export async function ToggleStatus(
-  type: "todos" | "reminders" | "habits",
+  type: ItemType,
   id: string,
   title: string,
-  status: "todo" | "reminder" | "completed" | "trash"
+  status: 'todo' | 'reminder' | 'completed' | 'trash'
 ) {
-  return await toast.promise(axios.put(`/api/${type}/${id}`, { status }), {
+  return await toast.promise(axios.put(`/api/${type}s/${id}`, { status }), {
     loading: `"${title}" is marking as ${status.toUpperCase()}...`,
     success: `"${title}" is marked as ${status.toUpperCase()}!`,
     error: `Failed to mark "${title}" as ${status.toUpperCase()}. Please try again later.`,
-  });
-}
-
-export async function EmptyTrash(type: "todos" | "reminders" | "habits") {
-  return await toast.promise(axios.delete(`/api/${type}`), {
-    loading: `Clearing trash...`,
-    success: `Trash is cleared!`,
-    error: `Failed to empty trash. Please try again later.`,
   });
 }

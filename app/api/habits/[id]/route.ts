@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { NextRequest, NextResponse } from 'next/server';
+import prisma from '@/lib/prisma';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '../../auth/[...nextauth]/route';
 
 export async function PUT(
   request: NextRequest,
@@ -10,7 +10,7 @@ export async function PUT(
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   await prisma.habits.update({
@@ -22,7 +22,7 @@ export async function PUT(
     },
   });
   return NextResponse.json(
-    { message: "Habit status has been changed" },
+    { message: 'Habit status has been changed' },
     { status: 200 }
   );
 }
@@ -34,7 +34,7 @@ export async function DELETE(
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.email) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
   await prisma.habits.delete({
@@ -44,8 +44,5 @@ export async function DELETE(
     },
   });
 
-  return NextResponse.json(
-    { message: "Deleted habit" },
-    { status: 201 }
-  );
+  return NextResponse.json({ message: 'Deleted habit' }, { status: 201 });
 }

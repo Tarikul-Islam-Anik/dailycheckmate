@@ -1,7 +1,7 @@
-import { Label } from "../ui/label";
-import { Checkbox } from "../ui/checkbox";
-import { cn } from "@/lib/utils";
-import HabitActions from "./habit-actions";
+import { Label } from '../ui/label';
+import { Checkbox } from '../ui/checkbox';
+import { cn } from '@/lib/utils';
+import HabitActions from './habit-actions';
 
 const HabitItem = ({
   id,
@@ -18,9 +18,9 @@ const HabitItem = ({
     <Label
       key={id}
       className={cn(
-        checked ? "line-through" : "",
-        !handleChange && "justify-between pr-0",
-        "flex items-center gap-2 w-full text-muted-foreground my-1 hover:text-black dark:hover:text-white transition-colors leading-5"
+        checked ? 'line-through' : '',
+        !handleChange && 'justify-between pr-0',
+        'my-1 flex w-full items-center gap-2 leading-5 text-muted-foreground transition-colors hover:text-black dark:hover:text-white'
       )}
       htmlFor={id}
     >

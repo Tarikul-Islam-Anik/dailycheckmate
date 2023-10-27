@@ -4,21 +4,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 const TitleAndDescription = ({ form }: { form: any }) => {
   return (
     <>
       <FormField
         control={form.control}
-        name="title"
+        name='title'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Title</FormLabel>
             <FormControl>
-              <Input placeholder="Give your task a title" {...field} />
+              <Input placeholder='Give your task a title' {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -26,14 +26,14 @@ const TitleAndDescription = ({ form }: { form: any }) => {
       />
       <FormField
         control={form.control}
-        name="description"
+        name='description'
         render={({ field }) => (
           <FormItem>
             <FormLabel>Description (optional)</FormLabel>
             <FormControl>
               <Textarea
                 rows={4}
-                placeholder="Write your task here..."
+                placeholder='Write your task here...'
                 {...field}
               />
             </FormControl>

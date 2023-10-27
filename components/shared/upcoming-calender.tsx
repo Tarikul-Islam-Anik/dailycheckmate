@@ -1,37 +1,37 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useAtom } from "jotai";
-import { reminderAtom } from "@/lib/atom";
-import { format } from "date-fns";
-import { Flex, Heading, Box } from "@radix-ui/themes";
-import { DateFormatter } from "react-day-picker";
-import { Calendar } from "@/components/ui/calendar";
-import { cn } from "@/lib/utils";
+import { useState } from 'react';
+import { useAtom } from 'jotai';
+import { reminderAtom } from '@/lib/atom';
+import { format } from 'date-fns';
+import { Flex, Heading, Box } from '@radix-ui/themes';
+import { DateFormatter } from 'react-day-picker';
+import { Calendar } from '@/components/ui/calendar';
+import { cn } from '@/lib/utils';
 
 const seasonEmoji: Record<string, string> = {
-  winter: "⛄️",
-  spring: "🌸",
-  summer: "🌻",
-  autumn: "🍂",
+  winter: '⛄️',
+  spring: '🌸',
+  summer: '🌻',
+  autumn: '🍂',
 };
 
 const getSeason = (month: Date): string => {
   const monthNumber = month.getMonth();
-  if (monthNumber >= 0 && monthNumber < 3) return "winter";
-  if (monthNumber >= 3 && monthNumber < 6) return "spring";
-  if (monthNumber >= 6 && monthNumber < 9) return "summer";
-  else return "autumn";
+  if (monthNumber >= 0 && monthNumber < 3) return 'winter';
+  if (monthNumber >= 3 && monthNumber < 6) return 'spring';
+  if (monthNumber >= 6 && monthNumber < 9) return 'summer';
+  else return 'autumn';
 };
 
 const formatCaption: DateFormatter = (month, options) => {
   const season = getSeason(month);
   return (
     <>
-      <span role="img" aria-label={season}>
+      <span role='img' aria-label={season}>
         {seasonEmoji[season]}
-      </span>{" "}
-      {format(month, "LLLL", { locale: options?.locale })}
+      </span>{' '}
+      {format(month, 'LLLL', { locale: options?.locale })}
     </>
   );
 };
@@ -51,28 +51,28 @@ const UpcomingEventCalender = () => {
 
   return (
     <Box>
-      <Flex justify="between" align="center" mb="4">
-        <Heading size="5" as="h3">
+      <Flex justify='between' align='center' mb='4'>
+        <Heading size='5' as='h3'>
           Upcoming Events
         </Heading>
       </Flex>
-      <Box className="rounded-xl bg-card w-full space-x-9 flex h-[290px] relative items-center justify-center overflow-hidden">
+      <Box className='relative flex h-[290px] w-full items-center justify-center space-x-9 overflow-hidden rounded-xl bg-card'>
         <Calendar
-          mode="single"
+          mode='single'
           selected={new Date()}
           disabled={(date) => disableDates(date)}
           modifiers={{
             events: events,
           }}
           modifiersClassNames={{
-            events: "text-primary",
+            events: 'text-primary',
           }}
-          className="absolute top-2 w-full h-full left-2"
+          className='absolute left-2 top-2 h-full w-full'
           classNames={{
             head_cell:
-              "text-muted-foreground rounded-md w-8 mx-0.5 font-normal text-[0.8rem]",
+              'text-muted-foreground rounded-md w-8 mx-0.5 font-normal text-[0.8rem]',
             cell: cn(
-              "relative p-0 mx-0.5 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent"
+              'relative p-0 mx-0.5 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent'
             ),
           }}
           formatters={{ formatCaption }}

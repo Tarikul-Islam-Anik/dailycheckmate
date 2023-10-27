@@ -1,9 +1,10 @@
-"use client";
+'use client';
 
-import { MixerHorizontalIcon } from "@radix-ui/react-icons";
-import { Flex, Text } from "@radix-ui/themes";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { MixerHorizontalIcon } from '@radix-ui/react-icons';
+import { Flex, Text } from '@radix-ui/themes';
+import { Todo, Reminder } from '@/lib/types';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,10 +13,10 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import ChangeBulkStatus from "./change-bulk-status";
+} from '@/components/ui/dropdown-menu';
+import ChangeBulkStatus from './change-bulk-status';
 
-type status = "reminder" | "todo" | "completed" | "trash";
+type status = Todo['status'] | Reminder['status'];
 
 const FilterOptions = ({
   type,
@@ -23,23 +24,23 @@ const FilterOptions = ({
   filter,
   setFilter,
 }: {
-  type: "reminder" | "todo" | "habit";
+  type: 'reminder' | 'todo' | 'habit';
   className?: string;
   filter: status;
   setFilter: (status: status) => void;
 }) => {
   return (
-    <Flex align="center" gap="2">
-      {type === "todo" && (filter === "completed" || filter === "trash") && (
+    <Flex align='center' gap='2'>
+      {type === 'todo' && (filter === 'completed' || filter === 'trash') && (
         <ChangeBulkStatus type={type} status={filter} />
       )}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            variant="ghost"
-            className={cn("text-primary font-bold", className)}
+            variant='ghost'
+            className={cn('font-bold text-primary', className)}
           >
-            <Flex align="center" gap="2">
+            <Flex align='center' gap='2'>
               <MixerHorizontalIcon />
               <Text>View</Text>
             </Flex>
@@ -53,12 +54,12 @@ const FilterOptions = ({
             onValueChange={setFilter as any}
           >
             <DropdownMenuRadioItem value={type}>
-              {type === "reminder" ? "Upcoming" : "In Progress"}
+              {type === 'reminder' ? 'Upcoming' : 'In Progress'}
             </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="completed">
+            <DropdownMenuRadioItem value='completed'>
               Completed
             </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="trash">Trash</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value='trash'>Trash</DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>

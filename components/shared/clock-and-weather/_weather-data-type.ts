@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const Coord = z.object({
   lon: z.number(),
@@ -10,24 +10,24 @@ export const Weather = z.object({
   main: z.string(),
   description: z.string(),
   icon: z.enum([
-    "01d",
-    "01n",
-    "02d",
-    "02n",
-    "03d",
-    "03n",
-    "04d",
-    "04n",
-    "09d",
-    "09n",
-    "10d",
-    "10n",
-    "11d",
-    "11n",
-    "13d",
-    "13n",
-    "50d",
-    "50n",
+    '01d',
+    '01n',
+    '02d',
+    '02n',
+    '03d',
+    '03n',
+    '04d',
+    '04n',
+    '09d',
+    '09n',
+    '10d',
+    '10n',
+    '11d',
+    '11n',
+    '13d',
+    '13n',
+    '50d',
+    '50n',
   ]),
 });
 
@@ -49,7 +49,7 @@ export const Wind = z.object({
 });
 
 export const Rain = z.object({
-  "1h": z.number(),
+  '1h': z.number(),
 });
 
 export const Clouds = z.object({
