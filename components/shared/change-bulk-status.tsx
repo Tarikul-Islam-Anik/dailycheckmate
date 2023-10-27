@@ -40,8 +40,8 @@ const ChangeBulkStatus = ({
     if (session) {
       toast.promise(
         status === 'completed'
-          ? axios.put('/api/' + type)
-          : axios.delete('/api/' + type),
+          ? axios.put('/api/' + type + 's')
+          : axios.delete('/api/' + type + 's'),
         {
           loading:
             status === 'completed' ? 'Moving to trash' : 'Clearing trash',
@@ -67,9 +67,7 @@ const ChangeBulkStatus = ({
       description='This action is irreversible. All the items in the trash will be deleted permanently.'
       action={handleClick}
     >
-      <Button variant='secondary'>
-        Clear trash
-      </Button>
+      <Button variant='secondary'>Clear trash</Button>
     </AlertDialogParent>
   );
 };
