@@ -4,10 +4,10 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Daily Checkmate',
     short_name: 'DailyCheckmate',
-    theme_color: '884dee',
+    theme_color: '#884dee',
     background_color: '#fff',
     display: 'standalone',
-    orientation: 'portrait',
+    orientation: 'landscape',
     scope: '/',
     start_url: '/',
     icons: [
