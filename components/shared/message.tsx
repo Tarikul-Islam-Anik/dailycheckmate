@@ -16,7 +16,7 @@ const Message = ({
   }, []);
 
   const splitedMessage = message.split('/newline/').map((item, index) => (
-    <Text as='p' key={index}>
+    <Text key={index}>
       <Text align='center'>{item}</Text>
       <br />
     </Text>
