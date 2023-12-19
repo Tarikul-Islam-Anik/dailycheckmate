@@ -28,11 +28,22 @@ const accountSchema = z.object({
   updatedAt: z.string().optional(),
 });
 
+const status = z.enum(['onGoing', 'completed', 'trash']);
+
 const todoSchema = z.object({
   id: z.string(),
   title: z.string(),
   description: z.string().optional(),
-  status: z.enum(['todo', 'completed', 'trash']).default('todo'),
+  status: status.default('onGoing'),
+  createdAt: z.string(),
+  updatedAt: z.string().optional(),
+  userId: z.string(),
+});
+const ideaSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  description: z.string().optional(),
+  category: z.string().optional(),
   createdAt: z.string(),
   updatedAt: z.string().optional(),
   userId: z.string(),
@@ -44,7 +55,7 @@ const reminderSchema = z.object({
   description: z.string().optional(),
   links: z.array(z.string()).optional(),
   schedule: z.string(),
-  status: z.enum(['reminder', 'completed', 'trash']).default('reminder'),
+  status: status.default('onGoing'),
   createdAt: z.string(),
   updatedAt: z.string().optional(),
   userId: z.string(),
@@ -62,5 +73,6 @@ const habitSchema = z.object({
 export type User = z.infer<typeof userSchema>;
 export type Account = z.infer<typeof accountSchema>;
 export type Todo = z.infer<typeof todoSchema>;
+export type Idea = z.infer<typeof ideaSchema>;
 export type Reminder = z.infer<typeof reminderSchema>;
 export type Habit = z.infer<typeof habitSchema>;
