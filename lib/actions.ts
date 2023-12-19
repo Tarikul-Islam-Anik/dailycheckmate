@@ -35,7 +35,7 @@ export async function ToggleStatus(
   type: ItemType,
   id: string,
   title: string,
-  status: 'todo' | 'reminder' | 'completed' | 'trash'
+  status: 'onGoing' | 'completed' | 'trash'
 ) {
   return await toast.promise(axios.put(`/api/${type}s/${id}`, { status }), {
     loading: `"${title}" is marking as ${status.toUpperCase()}...`,
