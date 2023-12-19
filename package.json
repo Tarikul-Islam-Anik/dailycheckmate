@@ -6,6 +6,7 @@
     "dev": "prisma generate && next dev",
     "turbo": "prisma generate && next dev --turbo",
     "build": "prisma generate && next build",
+    "prisma": "prisma generate && prisma db push",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write ."
