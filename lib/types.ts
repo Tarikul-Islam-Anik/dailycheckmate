@@ -30,7 +30,7 @@ const accountSchema = z.object({
 
 const status = z.enum(['onGoing', 'completed', 'trash']);
 
-const todoSchema = z.object({
+export const todoSchema = z.object({
   id: z.string(),
   title: z.string(),
   description: z.string().optional(),
@@ -39,17 +39,17 @@ const todoSchema = z.object({
   updatedAt: z.string().optional(),
   userId: z.string(),
 });
-const ideaSchema = z.object({
-  id: z.string(),
+export const ideaSchema = z.object({
+  id: z.string().optional(),
   title: z.string(),
   description: z.string().optional(),
-  category: z.string().optional(),
-  createdAt: z.string(),
+  tags: z.string().optional(),
+  createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
-  userId: z.string(),
+  userId: z.string().optional(),
 });
 
-const reminderSchema = z.object({
+export const reminderSchema = z.object({
   id: z.string(),
   title: z.string(),
   description: z.string().optional(),
@@ -61,7 +61,7 @@ const reminderSchema = z.object({
   userId: z.string(),
 });
 
-const habitSchema = z.object({
+export const habitSchema = z.object({
   id: z.string(),
   title: z.string(),
   color: z.string().optional(),
