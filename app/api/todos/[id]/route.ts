@@ -46,3 +46,22 @@ export async function PUT(
     { status: 200 }
   );
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.email) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  await prisma.todo.delete({
+    where: { id: params.id, userId: session.user.id },
+  });
+  return NextResponse.json(
+    { message: 'Todo has been deleted' },
+    { status: 200 }
+  );
+}
