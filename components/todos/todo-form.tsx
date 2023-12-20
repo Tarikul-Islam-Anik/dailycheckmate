@@ -49,7 +49,7 @@ const TodoForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
     } else {
       const todo: Todo = {
         id: uuidv4(),
-        status: 'todo',
+        status: 'onGoing',
         ...data,
         createdAt: new Date().toISOString(),
         updatedAt: '',
