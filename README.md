@@ -16,6 +16,7 @@ You can try it yourself. I'm using Chrome as my main browser. I set the homepage
 ### Features ✅
 
 - [x] Add, edit, and delete tasks 📝
+- [x] Add, edit, and delete Ideas 💡
 - [x] Add, edit, and delete schedule 🗓️
 - [x] Add, edit, and delete habits 🧘
 
