@@ -79,7 +79,7 @@ const ReminderForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
     } else {
       const reminder: Reminder = {
         id: uuidv4(),
-        status: 'reminder',
+        status: 'onGoing',
         title: data.title,
         description: data.description,
         schedule: data.schedule.toISOString(),
