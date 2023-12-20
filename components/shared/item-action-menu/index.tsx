@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useAtom } from 'jotai';
 import { useSession } from 'next-auth/react';
 import { todoAtom, reminderAtom } from '@/lib/atom';
@@ -27,6 +26,8 @@ interface ItemActionMenuProps {
   id: Todo['id'] | Reminder['id'];
 }
 
+type ItemInfoProps = Todo | Reminder;
+
 const ItemActionMenu = ({ type, id }: ItemActionMenuProps) => {
   const { data: session } = useSession();
   const [items, setItems] = useAtom(type === 'todo' ? todoAtom : reminderAtom);
@@ -36,15 +37,10 @@ const ItemActionMenu = ({ type, id }: ItemActionMenuProps) => {
 
   function handleStatusChange(status: Todo['status'] | Reminder['status']) {
     session && ToggleStatus(type, id, title, status);
-
-    setItems((prev: (typeof items)[]) =>
-      prev.map((item: Todo | Reminder) =>
-        item.id === id
-          ? {
-              ...item,
-              status: status,
-            }
-          : item
+    // @ts-ignore
+    setItems((prev: ItemInfoProps[]) =>
+      prev.map((item: ItemInfoProps) =>
+        item.id === id ? { ...item, status } : item
       )
     );
   }
@@ -65,8 +61,8 @@ const ItemActionMenu = ({ type, id }: ItemActionMenuProps) => {
             </DropdownMenuItem>
           </DialogTrigger>
           {type === 'reminder' && <ReminderActionMenu id={id} />}
-          {status !== 'todo' && status !== 'reminder' && (
-            <DropdownMenuItem onClick={() => handleStatusChange(type)}>
+          {status !== 'onGoing' && (
+            <DropdownMenuItem onClick={() => handleStatusChange('onGoing')}>
               <ArrowUturnLeftIcon className='mr-2 h-5 w-5' />
               <Text as='span'>{status === 'trash' ? 'Restore' : 'Undo'}</Text>
             </DropdownMenuItem>
