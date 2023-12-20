@@ -1,10 +1,10 @@
 'use client';
 
-import { MixerHorizontalIcon } from '@radix-ui/react-icons';
-import { Flex, Text } from '@radix-ui/themes';
-import { Todo, Reminder } from '@/lib/types';
 import { cn } from '@/lib/utils';
+import { Todo, Reminder } from '@/lib/types';
+import { Flex, Text } from '@radix-ui/themes';
 import { Button } from '@/components/ui/button';
+import { MixerHorizontalIcon } from '@radix-ui/react-icons';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,17 +18,19 @@ import ChangeBulkStatus from './change-bulk-status';
 
 type status = Todo['status'] | Reminder['status'];
 
+interface FilterOptionsProps {
+  type: 'reminder' | 'todo' | 'habit';
+  className?: string;
+  filter: status;
+  setFilter: React.Dispatch<React.SetStateAction<status>>
+}
+
 const FilterOptions = ({
   type,
   className,
   filter,
   setFilter,
-}: {
-  type: 'reminder' | 'todo' | 'habit';
-  className?: string;
-  filter: status;
-  setFilter: (status: status) => void;
-}) => {
+}: FilterOptionsProps) => {
   return (
     <Flex align='center' gap='2'>
       {type === 'todo' && (filter === 'completed' || filter === 'trash') && (
@@ -53,7 +55,7 @@ const FilterOptions = ({
             value={filter}
             onValueChange={setFilter as any}
           >
-            <DropdownMenuRadioItem value={type}>
+            <DropdownMenuRadioItem value='onGoing'>
               {type === 'reminder' ? 'Upcoming' : 'In Progress'}
             </DropdownMenuRadioItem>
             <DropdownMenuRadioItem value='completed'>
