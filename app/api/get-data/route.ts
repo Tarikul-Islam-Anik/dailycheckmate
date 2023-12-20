@@ -16,6 +16,7 @@ export async function GET(request: NextRequest) {
     },
     include: {
       todos: true,
+      ideas: true,
       reminders: true,
       habits: true,
     },
