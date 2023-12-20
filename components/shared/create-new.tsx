@@ -1,12 +1,12 @@
 'use client';
 import React, { useState } from 'react';
 import { Text } from '@radix-ui/themes';
-import { buttonVariants } from '@/components/ui/button';
 import {
   PlusIcon,
   CalendarIcon,
   CheckCircleIcon,
   HeartIcon,
+  LightBulbIcon,
 } from '@heroicons/react/24/outline';
 import {
   Dialog,
@@ -21,34 +21,40 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import TooltipParent from './tooltip-parent';
+import IdeaForm from '../idea/idea-form';
 import TodoForm from '../todos/todo-form';
-import ReminderForm from '../reminders/reminder-form';
-import { Button } from '@/components/ui/button';
+import TooltipParent from './tooltip-parent';
 import HabitForm from '../habits/habit-form';
+import { Button } from '@/components/ui/button';
+import ReminderForm from '../reminders/reminder-form';
 
 const itemInfo = [
   {
     type: 'todos',
     title: '✏ Create a new task',
     description: 'You can edit and view your tasks later.',
+    icon: CheckCircleIcon,
+  },
+  {
+    type: 'ideas',
+    title: '💡 Write down an idea',
+    description: 'You can edit and view your ideas later.',
+    icon: LightBulbIcon,
   },
   {
     type: 'reminders',
     title: '📅 Add a reminder',
     description: 'You can edit and view your reminders later.',
+    icon: CalendarIcon,
   },
   {
     type: 'habits',
     title: '💖 Practice a habit',
     description: 'You can not edit it later.',
+    icon: HeartIcon,
   },
 ];
 
@@ -64,30 +70,23 @@ const CreateNew = () => {
             <PlusIcon className='h-6 w-6' />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
+        <DropdownMenuContent className='mt-2'>
           <DropdownMenuLabel>Add a new</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DialogTrigger asChild>
-            <DropdownMenuItem onSelect={() => setFormType('todos')}>
-              <CheckCircleIcon className='mr-2 h-5 w-5' />
-              <Text as='span'>Task</Text>
-            </DropdownMenuItem>
-          </DialogTrigger>
-          <DialogTrigger asChild>
-            <DropdownMenuItem onSelect={() => setFormType('reminders')}>
-              <CalendarIcon className='mr-2 h-5 w-5' />
-              <Text as='span'>Reminder</Text>
-            </DropdownMenuItem>
-          </DialogTrigger>
-          <DialogTrigger asChild>
-            <DropdownMenuItem onSelect={() => setFormType('habits')}>
-              <HeartIcon className='mr-2 h-5 w-5' />
-              <Text as='span'>Habit</Text>
-            </DropdownMenuItem>
-          </DialogTrigger>
+          {itemInfo.map((item) => (
+            <DialogTrigger asChild key={item.type}>
+              <DropdownMenuItem onSelect={() => setFormType(item.type)}>
+                <TooltipParent content={item.description}>
+                  <item.icon className='mr-2 h-5 w-5' />
+                </TooltipParent>
+                <Text as='span' className='capitalize'>
+                  {item.type.split('s')[0]}
+                </Text>
+              </DropdownMenuItem>
+            </DialogTrigger>
+          ))}
         </DropdownMenuContent>
       </DropdownMenu>
-
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
@@ -105,33 +104,14 @@ const CreateNew = () => {
           <TodoForm setOpen={setOpen} />
         ) : formType === 'reminders' ? (
           <ReminderForm setOpen={setOpen} />
-        ) : (
+        ) : formType === 'ideas' ? (
+          <IdeaForm setOpen={setOpen} />
+        ) : formType === 'habits' ? (
           <HabitForm setOpen={setOpen} />
-        )}
+        ) : null}
       </DialogContent>
     </Dialog>
   );
 };
 
 export default CreateNew;
-
-{
-  /* <TooltipParent content="Create new">
-      
-      </TooltipParent>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>
-            <Text as="span">{title}</Text>
-          </DialogTitle>
-          <DialogDescription>
-            <Text as="span">{description}</Text>
-          </DialogDescription>
-        </DialogHeader>
-        {type === "todos" ? (
-          <TodoForm setOpen={setOpen} />
-        ) : (
-          <ReminderForm setOpen={setOpen} />
-        )}
-      </DialogContent> */
-}
