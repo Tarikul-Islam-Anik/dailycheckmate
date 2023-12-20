@@ -28,29 +28,40 @@ const accountSchema = z.object({
   updatedAt: z.string().optional(),
 });
 
-const todoSchema = z.object({
+const status = z.enum(['onGoing', 'completed', 'trash']);
+
+export const todoSchema = z.object({
   id: z.string(),
   title: z.string(),
   description: z.string().optional(),
-  status: z.enum(['todo', 'completed', 'trash']).default('todo'),
+  status: status.default('onGoing'),
   createdAt: z.string(),
   updatedAt: z.string().optional(),
   userId: z.string(),
 });
+export const ideaSchema = z.object({
+  id: z.string().optional(),
+  title: z.string(),
+  description: z.string().optional(),
+  tags: z.string().optional(),
+  createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
+  userId: z.string().optional(),
+});
 
-const reminderSchema = z.object({
+export const reminderSchema = z.object({
   id: z.string(),
   title: z.string(),
   description: z.string().optional(),
   links: z.array(z.string()).optional(),
   schedule: z.string(),
-  status: z.enum(['reminder', 'completed', 'trash']).default('reminder'),
+  status: status.default('onGoing'),
   createdAt: z.string(),
   updatedAt: z.string().optional(),
   userId: z.string(),
 });
 
-const habitSchema = z.object({
+export const habitSchema = z.object({
   id: z.string(),
   title: z.string(),
   color: z.string().optional(),
@@ -62,5 +73,6 @@ const habitSchema = z.object({
 export type User = z.infer<typeof userSchema>;
 export type Account = z.infer<typeof accountSchema>;
 export type Todo = z.infer<typeof todoSchema>;
+export type Idea = z.infer<typeof ideaSchema>;
 export type Reminder = z.infer<typeof reminderSchema>;
 export type Habit = z.infer<typeof habitSchema>;

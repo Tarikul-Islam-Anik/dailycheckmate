@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'sonner';
 
-type ItemType = 'todo' | 'reminder' | 'habit';
+type ItemType = 'todo' | 'idea' | 'reminder' | 'habit';
 
 export async function Edit(
   type: ItemType,
@@ -14,7 +14,11 @@ export async function Edit(
 }
 
 export async function Delete(type: ItemType, id: string) {
-  return await axios.delete(`/api/${type}s/${id}`);
+  return await toast.promise(axios.delete(`/api/${type}s/${id}`), {
+    loading: `Deleting ${type}...`,
+    success: `${type} deleted!`,
+    error: 'Failed to delete. Please try again later.',
+  });
 }
 
 export async function Create(
@@ -35,7 +39,7 @@ export async function ToggleStatus(
   type: ItemType,
   id: string,
   title: string,
-  status: 'todo' | 'reminder' | 'completed' | 'trash'
+  status: 'onGoing' | 'completed' | 'trash'
 ) {
   return await toast.promise(axios.put(`/api/${type}s/${id}`, { status }), {
     loading: `"${title}" is marking as ${status.toUpperCase()}...`,

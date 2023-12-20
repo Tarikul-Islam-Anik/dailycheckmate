@@ -6,7 +6,7 @@ import { Reminder } from '@/lib/types';
 import ReminderItem from './reminder-item';
 import Message from '../shared/message';
 
-type ReminderStatus = 'reminder' | 'completed' | 'trash';
+type ReminderStatus = 'onGoing' | 'completed' | 'trash';
 
 const GetReminders = ({
   reminderStatus,

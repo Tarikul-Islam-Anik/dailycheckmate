@@ -9,7 +9,7 @@ import GetReminders from './get-reminders';
 
 const ReminderList = () => {
   const [reminderStatus, setReminderStatus] =
-    useState<Reminder['status']>('reminder');
+    useState<Reminder['status']>('onGoing');
   return (
     <Box>
       <Flex justify='between' align='center'>

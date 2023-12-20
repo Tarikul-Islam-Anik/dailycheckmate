@@ -1,7 +1,9 @@
-import { Flex, Heading } from '@radix-ui/themes';
 import { format } from 'date-fns';
-import CreateNew from '@/components/shared/create-new';
+import { Box, Flex, Heading } from '@radix-ui/themes';
+import IdeaList from '@/components/idea';
 import TodoList from '@/components/todos';
+import CreateNew from '@/components/shared/create-new';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const MiddleColumn = () => {
   return (
@@ -15,7 +17,20 @@ const MiddleColumn = () => {
         </Flex>
         <CreateNew />
       </Flex>
-      <TodoList />
+      <Box mt='5' position='relative'>
+        <Tabs defaultValue="todos" className='w-full'>
+          <TabsList className='mb-5'>
+            <TabsTrigger value="todos">Todos</TabsTrigger>
+            <TabsTrigger value="ideas">Ideas</TabsTrigger>
+          </TabsList>
+          <TabsContent value="todos">
+            <TodoList />
+          </TabsContent>
+          <TabsContent value="ideas">
+            <IdeaList />
+          </TabsContent>
+        </Tabs>
+      </Box>
     </Flex>
   );
 };

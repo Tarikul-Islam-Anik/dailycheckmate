@@ -18,7 +18,7 @@ const TitleAndDescription = ({ form }: { form: any }) => {
           <FormItem>
             <FormLabel>Title</FormLabel>
             <FormControl>
-              <Input placeholder='Give your task a title' {...field} />
+              <Input placeholder='Give a title' {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -33,7 +33,7 @@ const TitleAndDescription = ({ form }: { form: any }) => {
             <FormControl>
               <Textarea
                 rows={4}
-                placeholder='Write your task here...'
+                placeholder='Provide a description'
                 {...field}
               />
             </FormControl>

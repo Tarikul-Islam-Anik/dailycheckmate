@@ -25,10 +25,10 @@ const TodoItem = ({ id }: { id: Todo['id'] }) => {
   }
 
   return (
-    <Box className='h-[70px] rounded-xl border' p='4' my='3'>
+    <Box className='h-[70px] rounded-xl border hover:border-primary transition' p='4' my='3'>
       <Flex justify='between' align='center'>
         <Flex gap='3' align='center' className='w-[90%]'>
-          {status === 'todo' && (
+          {status === 'onGoing' && (
             <Checkbox id={id} onCheckedChange={handleComplete} />
           )}
           <Label htmlFor={id} className='truncate'>
